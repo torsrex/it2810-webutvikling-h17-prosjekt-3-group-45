@@ -3,8 +3,8 @@ import uuid from 'uuid';
 import logo from './logo.svg';
 import './App.css';
 import { Contacts } from './Contacts';
-import Todos from './Components/Todos';
-import AddTodo from './Components/AddTodo';
+import Todos from './Components/Todos.jsx';
+import AddTodo from './Components/AddTodo.jsx';
 
 class App extends Component {
   constructor(props){
