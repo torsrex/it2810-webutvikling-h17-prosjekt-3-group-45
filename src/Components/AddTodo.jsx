@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import uuid from 'uuid';
+import { Button, Checkbox, Form } from 'semantic-ui-react';
 
 class AddTodo extends Component{
 
@@ -31,19 +32,18 @@ class AddTodo extends Component{
       <div>
         <h3>Add Todo</h3>
 
+        <Form onSubmit={this.handleSubmit.bind(this)}>
+          <Form.Field>
+            <label>Title</label>
+            <input ref="title" placeholder='Enter a title for your todo...' />
+          </Form.Field>
+          <Form.Field>
+            <label>Description</label>
+            <input ref="description" placeholder='Enter a description for your todo...' />
+          </Form.Field>
+          <Button type='submit'>Add Todo</Button>
+        </Form>
 
-        <form onSubmit={this.handleSubmit.bind(this)}>
-          <div>
-            <label>Title</label><br />
-            <input type="text" ref="title" />
-          </div>
-          <div>
-            <label>Description</label><br />
-            <input type="text" ref="description" />
-          </div>
-          <br />
-          <input type="submit" value="Add" />
-        </form>
       </div>
     );
   }
