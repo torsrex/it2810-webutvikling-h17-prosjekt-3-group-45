@@ -32,6 +32,7 @@ class App extends Component {
     });
   }
 
+
   handleAddTodo(todo){
     let todos = this.state.todos;
     todos.push(todo);
@@ -44,6 +45,12 @@ class App extends Component {
     todos.splice(index, 1);
     this.setState({todos: todos});
   }
+    
+  handleAddContact(contact){
+    let contacts = this.state.contacts;
+    contacts.push(contact);
+    this.setState({contacts:contacts});
+  }
 
   render() {
     return (
@@ -52,10 +59,11 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Hello { this.state.name }</h2>
         </div>
-        <Contacts contacts={this.state.contacts} />
 
         <AddTodo addTodo={this.handleAddTodo.bind(this)}/>
         <Todos todos={this.state.todos} onDelete={this.handleDeleteTodo.bind(this)} />
+
+        <Contacts contacts={this.state.contacts} addContact={this.handleAddContact.bind(this)} />
 
       </div>
     );
