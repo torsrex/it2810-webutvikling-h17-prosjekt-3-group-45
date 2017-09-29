@@ -23,21 +23,22 @@ export class AddContact extends React.Component{
   render(){
     return(
       <div>
-        <h1>AddContact</h1>
+        <h1>Add Contact</h1>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <div>
             <label>Name</label><br />
             <input type="text" ref="name" />
           </div>
           <div>
-            <label>eMail</label><br />
+            <label>Email</label><br />
             <input type="text" ref="email" />
           </div>
           <div>
-            <label>Phone No</label><br />
+            <label>Phone number</label><br />
             <input type="text" ref="phone" />
           </div>
-          <input type="submit" value="submit" />
+          <br />
+          <input type="submit" value="Submit" />
         </form>
       </div>
     )

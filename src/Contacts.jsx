@@ -6,7 +6,7 @@ export class Contacts extends React.Component{
   render(){
     return(
       <div>
-        <h2>Your contacts:</h2>
+        <h2>Your Contacts:</h2>
 
         {this.props.contacts.map(function(contact, index){
           return <Contact key={index} contactName={ contact.name } contactEmail={ contact.email } contactPhone={ contact.phone }/>
