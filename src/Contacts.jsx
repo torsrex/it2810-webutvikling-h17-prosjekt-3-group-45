@@ -1,18 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Contact } from './Contact';
+import { AddContact } from './AddContact';
 
 export class Contacts extends React.Component{
   render(){
-  return(
+    return(
+      <div>
+        <h2>Your contacts:</h2>
 
-    <div>
-    <h2>Your contacts:</h2>
+        {this.props.contacts.map(function(contact, index){
+          return <Contact key={index} contactName={ contact.name } contactEmail={ contact.email } contactPhone={ contact.phone }/>
+        })}
 
-    {this.props.contacts.map(function(contact, index){
-      return <Contact contactName={ contact.name } contactEmail={ contact.email } contactPhone={ contact.phone }/>
-    })}
-
-    </div>
-  )
+        <AddContact addContact={this.props.addContact} />
+      </div>
+    )
   }
 }

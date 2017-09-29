@@ -16,6 +16,13 @@ class App extends Component {
       // TODO: Set value from local storage
     }
   }
+
+  handleAddContact(contact){
+    let contacts = this.state.contacts;
+    contacts.push(contact);
+    this.setState({contacts:contacts});
+  }
+
   render() {
     return (
       <div className="App">
@@ -26,7 +33,7 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
-        <Contacts contacts={this.state.contacts} />
+        <Contacts contacts={this.state.contacts} addContact={this.handleAddContact.bind(this)} />
       </div>
     );
   }
