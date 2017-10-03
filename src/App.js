@@ -10,33 +10,39 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state={
-      name: "Username",
+      name: "",
       todos: [],
       contacts: []
-      // TODO: Set value from local storage
     }
   }
 
   componentWillMount(){
-    this.setState({
-      todos: [
-      {id: uuid.v4(), title: 'Make todolist', description: 'Tødden Tøddvik has to make the todolist'},
-      {id: uuid.v4(), title: 'Handle contacts', description: 'Ugle McUglesen \'boutta hook us up with contact info'},
-      {id: uuid.v4(), title: 'Hans Vette', description: 'Slap him in the 4Head'}
-      ],
-      contacts: [
-        {name: "Ugle McUglesen", email: "Ugle@gmail.com", phone: "12345678"},
-        {name: "Tødden Tøddvik", email: "tødden@gmail.com", phone: "22334455"},
-        {name: "Han Svette", email: "håvard@gmail.com", phone: "12121212"}
-      ]
-    });
+    const data = localStorage.getItem('squad');
+    if (data){
+      this.setState(JSON.parse(data))
+    } else{
+      this.setState({
+        name: "Username",
+        todos: [
+        {id: uuid.v4(), title: 'Make todolist', description: 'Tødden Tøddvik has to make the todolist'},
+        {id: uuid.v4(), title: 'Handle contacts', description: 'Ugle McUglesen \'boutta hook us up with contact info'},
+        {id: uuid.v4(), title: 'Hans Vette', description: 'Slap him in the 4Head'}
+        ],
+        contacts: [
+          {name: "Ugle McUglesen", email: "Ugle@gmail.com", phone: "12345678"},
+          {name: "Tødden Tøddvik", email: "tødden@gmail.com", phone: "22334455"},
+          {name: "Han Svette", email: "håvard@gmail.com", phone: "12121212"}
+        ]
+      });
+      localStorage.setItem('squad', JSON.stringify(this.state));
+    }
   }
-
 
   handleAddTodo(todo){
     let todos = this.state.todos;
     todos.push(todo);
     this.setState({todos: todos});
+    localStorage.setItem('squad', JSON.stringify(this.state));
   }
 
   handleDeleteTodo(id){
@@ -44,12 +50,14 @@ class App extends Component {
     let index = todos.findIndex(x => x.id === id);
     todos.splice(index, 1);
     this.setState({todos: todos});
+    localStorage.setItem('squad', JSON.stringify(this.state));
   }
-    
+
   handleAddContact(contact){
     let contacts = this.state.contacts;
     contacts.push(contact);
     this.setState({contacts:contacts});
+    localStorage.setItem('squad', JSON.stringify(this.state));
   }
 
   render() {
