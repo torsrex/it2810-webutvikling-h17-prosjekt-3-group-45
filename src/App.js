@@ -36,10 +36,13 @@ class App extends Component {
           {name: "Han Svette", email: "håvard@gmail.com", phone: "12121212"}
         ]
       });
-      localStorage.setItem('squad', JSON.stringify(this.state));
     }
   }
 
+
+  componentDidMount(){
+    localStorage.setItem('squad', JSON.stringify(this.state));
+  }
 
   handleAddTodo(todo){
     let todos = this.state.todos;
