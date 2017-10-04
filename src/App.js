@@ -6,6 +6,8 @@ import { Contacts } from './Contacts';
 import Todos from './Components/Todos.jsx';
 import AddTodo from './Components/AddTodo.jsx';
 
+import { Header, Icon, Image } from 'semantic-ui-react'
+
 class App extends Component {
   constructor(props){
     super(props);
@@ -37,6 +39,7 @@ class App extends Component {
     }
   }
 
+
   componentDidMount(){
     localStorage.setItem('squad', JSON.stringify(this.state));
   }
@@ -66,9 +69,13 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Hello { this.state.name }</h2>
+        <div>
+          <Header as='h2' icon textAlign='center'>
+            <Icon name='calendar' circular />
+            <Header.Content>
+              Hello { this.state.name }
+            </Header.Content>
+          </Header>
         </div>
 
         <AddTodo addTodo={this.handleAddTodo.bind(this)}/>
