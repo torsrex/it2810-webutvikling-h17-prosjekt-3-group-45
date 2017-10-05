@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import uuid from 'uuid';
 import logo from './logo.svg';
 import './App.css';
-import { Contacts } from './Contacts';
+import Contacts from './Contacts';
 import { Basic } from './BigCalendar'
 import Todos from './Components/Todos.jsx';
 import AddTodo from './Components/AddTodo.jsx';
 
 import { Header, Icon, Image } from 'semantic-ui-react'
+import Navbar from "./Components/Navbar";
 
 class App extends Component {
   constructor(props){
@@ -70,6 +71,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+
+        <Navbar/>
+
         <div>
           <Header as='h2' icon textAlign='center'>
             <Icon name='calendar' circular />
