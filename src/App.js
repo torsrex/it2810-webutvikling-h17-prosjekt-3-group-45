@@ -6,6 +6,8 @@ import { Contacts } from './Contacts';
 import { Basic } from './BigCalendar'
 import Todos from './Components/Todos.jsx';
 import AddTodo from './Components/AddTodo.jsx';
+import Notes from './Components/Notes.jsx';
+import AddNote from './Components/AddNote.jsx';
 
 import { Header, Icon, Image } from 'semantic-ui-react'
 
@@ -15,6 +17,7 @@ class App extends Component {
     this.state={
       name: "",
       todos: [],
+      notes: [],
       contacts: []
     }
   }
@@ -30,6 +33,8 @@ class App extends Component {
         {id: uuid.v4(), title: 'Make todolist', description: 'Tødden Tøddvik has to make the todolist'},
         {id: uuid.v4(), title: 'Handle contacts', description: 'Ugle McUglesen \'boutta hook us up with contact info'},
         {id: uuid.v4(), title: 'Hans Vette', description: 'Slap him in the 4Head'}
+        ],
+        notes: [
         ],
         contacts: [
           {name: "Ugle McUglesen", email: "Ugle@gmail.com", phone: "12345678"},
@@ -60,6 +65,21 @@ class App extends Component {
     localStorage.setItem('squad', JSON.stringify(this.state));
   }
 
+  handleAddNote(note){
+    let notes = this.state.notes;
+    notes.push(note);
+    this.setState({notes: notes});
+    //localStorage.setItem('squad', JSON.stringify(this.state));
+  }
+
+  handleDeleteNote(id){
+    let notes = this.state.notes;
+    let index = notes.findIndex(x => x.id === id);
+    notes.splice(index, 1);
+    this.setState({notes: notes});
+    //localStorage.setItem('squad', JSON.stringify(this.state));
+  }
+
   handleAddContact(contact){
     let contacts = this.state.contacts;
     contacts.push(contact);
@@ -81,6 +101,10 @@ class App extends Component {
         <Basic/>
         <AddTodo addTodo={this.handleAddTodo.bind(this)}/>
         <Todos todos={this.state.todos} onDelete={this.handleDeleteTodo.bind(this)} />
+        <br></br>
+        <AddNote addNote={this.handleAddNote.bind(this)}/>
+        <Notes notes={this.state.notes} onDelete={this.handleDeleteNote.bind(this)}/>
+        <br></br>
         <Contacts contacts={this.state.contacts} addContact={this.handleAddContact.bind(this)} />
       </div>
     );
