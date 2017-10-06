@@ -69,7 +69,7 @@ class App extends Component {
     let notes = this.state.notes;
     notes.push(note);
     this.setState({notes: notes});
-    //localStorage.setItem('squad', JSON.stringify(this.state));
+    localStorage.setItem('squad', JSON.stringify(this.state));
   }
 
   handleDeleteNote(id){
@@ -77,7 +77,7 @@ class App extends Component {
     let index = notes.findIndex(x => x.id === id);
     notes.splice(index, 1);
     this.setState({notes: notes});
-    //localStorage.setItem('squad', JSON.stringify(this.state));
+    localStorage.setItem('squad', JSON.stringify(this.state));
   }
 
   handleAddContact(contact){
