@@ -1,50 +1,51 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import uuid from 'uuid';
-import { Button, Checkbox, Form } from 'semantic-ui-react';
+import {Button, Checkbox, Form, Grid, Container} from 'semantic-ui-react';
 
-class AddTodo extends Component{
+class AddTodo extends Component {
 
-  constructor(){
+  constructor() {
     super();
     this.state = {
       newTodo: {},
-      value : null
     }
   }
 
 
-  handleSubmit(e){
-    if(this.refs.title.value === ''){
+  handleSubmit(e) {
+    if (this.refs.title.value === '') {
       alert("Title required");
-    }else{
-      this.setState({newTodo: {
-        id: uuid.v4(),
-        title: this.refs.title.value,
-        description: this.state.value
-      }}, function(){
+    } else {
+      this.setState({
+        newTodo: {
+          id: uuid.v4(),
+          title: this.refs.title.value,
+          description: this.state.value
+        }
+      }, function () {
         this.props.addTodo(this.state.newTodo);
       });
     }
     e.preventDefault();
   }
 
-  render(){
+  render() {
     return (
       <div>
         <h3>Add Todo</h3>
 
-        <Form onSubmit={this.handleSubmit.bind(this)}>
+          <Form onSubmit={this.handleSubmit.bind(this)}>
+            <Form.Field>
+              <label>Title</label>
+              <input ref="title" placeholder='Enter a title for your todo...'/>
+            </Form.Field>
 
-          <Form.Field>
-            <label>Title</label>
-            <input ref="title" placeholder='Enter a title for your todo...' />
-          </Form.Field>
+            <Form.TextArea label="Description" placeholder='Enter a description for your todo...'
+                           onChange={(e, {value}) => this.setState({value})}/>
 
-          <Form.TextArea label="Description" placeholder='Enter a description for your todo...' onChange={(e, { value }) => this.setState({ value })}/>
+            <Button color="green" type='submit'>Add Todo</Button>
 
-          <Button color="green" type='submit'>Add Todo</Button>
-
-        </Form>
+          </Form>
 
       </div>
     );
