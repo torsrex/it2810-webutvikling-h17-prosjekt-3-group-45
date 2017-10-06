@@ -105,10 +105,10 @@ class App extends Component {
         <Basic/>
         <AddTodo addTodo={this.handleAddTodo.bind(this)}/>
         <Todos todos={this.state.todos} onDelete={this.handleDeleteTodo.bind(this)} />
-        <br></br>
+        <br/>
         <AddNote addNote={this.handleAddNote.bind(this)}/>
         <Notes notes={this.state.notes} onDelete={this.handleDeleteNote.bind(this)}/>
-        <br></br>
+        <br/>
         <Contacts contacts={this.state.contacts} addContact={this.handleAddContact.bind(this)} />
       </div>
     );
