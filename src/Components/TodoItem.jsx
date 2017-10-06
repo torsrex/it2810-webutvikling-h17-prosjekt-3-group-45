@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Button, Icon } from 'semantic-ui-react';
+
 
 class TodoItem extends Component{
 
@@ -9,7 +11,9 @@ class TodoItem extends Component{
   render(){
     return (
       <li className="Todo">
-        <b>{this.props.todo.title}</b>: {this.props.todo.description} <a href="#" onClick={this.deleteTodo.bind(this, this.props.todo.id)}>Remove</a>
+        <b>{this.props.todo.title}</b>: {this.props.todo.description}&nbsp;&nbsp;
+        <Button size="mini" color="teal" title="Edit" circular icon="write" onClick={this.deleteTodo.bind(this, this.props.todo.id)} />
+        <Button size="mini" color="red" title="Delete" circular icon="trash outline" onClick={this.deleteTodo.bind(this, this.props.todo.id)} />
       </li>
     );
   }

@@ -7,7 +7,8 @@ class AddTodo extends Component{
   constructor(){
     super();
     this.state = {
-      newTodo: {}
+      newTodo: {},
+      value : null
     }
   }
 
@@ -19,7 +20,7 @@ class AddTodo extends Component{
       this.setState({newTodo: {
         id: uuid.v4(),
         title: this.refs.title.value,
-        description: this.refs.description.value
+        description: this.state.value
       }}, function(){
         this.props.addTodo(this.state.newTodo);
       });
@@ -33,15 +34,16 @@ class AddTodo extends Component{
         <h3>Add Todo</h3>
 
         <Form onSubmit={this.handleSubmit.bind(this)}>
+
           <Form.Field>
             <label>Title</label>
             <input ref="title" placeholder='Enter a title for your todo...' />
           </Form.Field>
-          <Form.Field>
-            <label>Description</label>
-            <input ref="description" placeholder='Enter a description for your todo...' />
-          </Form.Field>
-          <Button type='submit'>Add Todo</Button>
+
+          <Form.TextArea label="Description" placeholder='Enter a description for your todo...' onChange={(e, { value }) => this.setState({ value })}/>
+
+          <Button color="green" type='submit'>Add Todo</Button>
+
         </Form>
 
       </div>

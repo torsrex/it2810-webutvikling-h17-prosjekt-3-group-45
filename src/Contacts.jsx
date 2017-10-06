@@ -2,7 +2,7 @@ import React from 'react';
 import { Contact } from './Contact';
 import { AddContact } from './AddContact';
 
-export class Contacts extends React.Component{
+export default class Contacts extends React.Component{
   render(){
     return(
       <div>
