@@ -8,6 +8,7 @@ import Todos from './Components/Todos.jsx';
 import AddTodo from './Components/AddTodo.jsx';
 import Notes from './Components/Notes.jsx';
 import AddNote from './Components/AddNote.jsx';
+import SetName from './Components/SetName';
 
 import { Header, Icon, Image } from 'semantic-ui-react'
 import Navbar from "./Components/Navbar";
@@ -29,7 +30,7 @@ class App extends Component {
       this.setState(JSON.parse(data))
     } else{
       this.setState({
-        name: "Username",
+        name: "",
         todos: [
         {id: uuid.v4(), title: 'Make todolist', description: 'Tødden Tøddvik has to make the todolist'},
         {id: uuid.v4(), title: 'Handle contacts', description: 'Ugle McUglesen \'boutta hook us up with contact info'},
@@ -88,7 +89,19 @@ class App extends Component {
     localStorage.setItem('squad', JSON.stringify(this.state));
   }
 
+  handleSetName(name){
+    this.setState({name:name});
+    let state = this.state;
+    state.name = name;
+    localStorage.setItem('squad', JSON.stringify(state));
+  }
+
   render() {
+    if(this.state.name === ""){
+      return(
+        <SetName setName={this.handleSetName.bind(this)} />
+      )
+    }
     return (
       <div className="App">
 
