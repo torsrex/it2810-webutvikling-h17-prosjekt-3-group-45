@@ -17,7 +17,7 @@ export class AddContact extends React.Component{
       email:this.refs.email.value,
       phone:this.refs.phone.value
     }}, function(){
-      this.props.addContact(this.state.newContact);
+      this.props.addContact('contacts', this.state.newContact);
     });
   }
 
