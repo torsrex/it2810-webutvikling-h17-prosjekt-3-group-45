@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import TodoItem from './TodoItem';
+import AddTodo from './AddTodo';
+
 
 class Todos extends Component{
 
@@ -21,6 +23,7 @@ class Todos extends Component{
     return (
       <div className="Todo">
         <h3>My Todos</h3>
+        <AddTodo addTodo={this.props.addTodo} />
         {todoItems}
       </div>
     );
