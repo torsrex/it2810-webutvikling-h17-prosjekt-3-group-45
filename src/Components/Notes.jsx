@@ -5,7 +5,7 @@ import AddNote from './AddNote';
 class Notes extends Component{
 
   deleteNote(id){
-    this.props.onDelete(id);
+    this.props.onDelete("notes", id);
   }
 
   render(){

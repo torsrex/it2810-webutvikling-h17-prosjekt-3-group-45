@@ -21,8 +21,7 @@ class AddNote extends Component{
         title: this.refs.title.value,
         description: this.state.value
       }}, function(){
-        this.props.addNote(this.state.newNote);
-        // this.sendThru.bind(this);
+        this.props.addNote("notes" , this.state.newNote);
       });
   }
     e.preventDefault();
