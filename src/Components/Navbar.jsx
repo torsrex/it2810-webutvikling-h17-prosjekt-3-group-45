@@ -20,58 +20,35 @@ class Navbar extends Component {
   render() {
     const { activeItem } = this.state
     return (
-      <div className="App">
-        <Grid>
-          {/* Sticky sidebar */}
-          <Grid.Column width={3}>
-            <Sticky>
+      <Grid.Column width={3}>
+        <Sticky>
 
-              <Menu fluid vertical tabular>
-                <Menu.Item name='calendar' active={activeItem === 'calendar'} onClick={this.handleItemClick}>
-                  <Link to='/'>Calendar</Link>
-                </Menu.Item>
-                <Menu.Item name='todos' active={activeItem === 'todos'} onClick={this.handleItemClick}>
-                  <Link to='/todos'>Todos</Link>
-                </Menu.Item>
-                <Menu.Item name='contacts' active={activeItem === 'contacts'} onClick={this.handleItemClick}>
-                  <Link to='/contacts'>Contacts</Link>
-                </Menu.Item>
-                <Menu.Item name='notes' active={activeItem === 'notes'} onClick={this.handleItemClick}>
-                  <Link to='/notes'>Notes</Link>
-                </Menu.Item>
-              </Menu>
+          <Menu fluid vertical tabular>
+            <Link to='/'>
+              <Menu.Item name='calendar' active={activeItem === 'calendar'} onClick={this.handleItemClick}>
+                Calendar
+              </Menu.Item>
+            </Link>
+            <Link to='/todos'>
+              <Menu.Item name='todos' active={activeItem === 'todos'} onClick={this.handleItemClick}>
+                Todos
+              </Menu.Item>
+            </Link>
+            <Link to='/contacts'>
+              <Menu.Item name='contacts' active={activeItem === 'contacts'} onClick={this.handleItemClick}>
+                Contacts
+              </Menu.Item>
+            </Link>
+            <Link to='/notes'>
+              <Menu.Item name='notes' active={activeItem === 'notes'} onClick={this.handleItemClick}>
+                Notes
+              </Menu.Item>
+            </Link>
+          </Menu>
 
-            </Sticky>
-          </Grid.Column>
+        </Sticky>
+      </Grid.Column>
 
-          {/* Content to the right of sidebar */}
-          <Grid.Column stretched width={12}>
-            <Segment>
-
-              <div id="content">
-                {/* VARIABLE CONTENT IS DISPLAYED HERE */}
-                <Switch>
-                  <Route exact path='/' render= {() => (
-                    <Basic />
-                  )}/>
-                  <Route exact path='/todos' render= {() => (
-                    <Todos todos={this.props.s.todos} />
-                  )}/>
-                  <Route exact path='/contacts' render= {() => (
-                    <Contacts contacts={this.props.s.contacts} addContact={ () => {} } />
-                    // TODO: implement addContact
-                  )}/>
-                  <Route exact path='/notes' render= {() => (
-                    <Notes notes={this.props.s.notes} />
-                  )}/>
-                </Switch>
-              </div>
-
-            </Segment>
-          </Grid.Column>
-        </Grid>
-
-      </div>
     );
   }
 }
