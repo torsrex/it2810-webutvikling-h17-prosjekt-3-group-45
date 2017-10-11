@@ -107,7 +107,6 @@ class App extends Component {
     return (
       <div className="App">
 
-
           <div>
             <Header as='h2' icon textAlign='center'>
               <Icon name='calendar' circular />
@@ -130,14 +129,13 @@ class App extends Component {
                     <Calendar />
                   )}/>
                   <Route exact path='/todos' render= {() => (
-                    <Todos todos={this.state.todos} />
+                    <Todos todos={this.state.todos} addTodo={this.handleAddTodo.bind(this)} onDelete={this.handleDeleteTodo.bind(this)} />
                   )}/>
                   <Route exact path='/contacts' render= {() => (
-                    <Contacts contacts={this.state.contacts} addContact={ () => {} } />
-                    // TODO: implement addContact
+                    <Contacts contacts={this.state.contacts} addContact={this.handleAddContact.bind(this)} />
                   )}/>
                   <Route exact path='/notes' render= {() => (
-                    <Notes notes={this.state.notes} />
+                    <Notes notes={this.state.notes} addNote={this.handleAddNote.bind(this)} onDelete={this.handleDeleteNote.bind(this)}/>
                   )}/>
                 </Switch>
               </div>
