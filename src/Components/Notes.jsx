@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NoteItem from './NoteItem';
+import AddNote from './AddNote';
 
 class Notes extends Component{
 
@@ -21,6 +22,7 @@ class Notes extends Component{
     return (
       <div className="Notes">
         <h3>My Notes</h3>
+        <AddNote addNote={this.props.addNote} />
         {noteItems}
       </div>
     );

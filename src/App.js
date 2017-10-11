@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { Menu, Grid, Segment, Sticky } from 'semantic-ui-react';
 import uuid from 'uuid';
 import logo from './logo.svg';
 import './App.css';
 import Contacts from './Contacts';
-import { Basic } from './BigCalendar'
+import { Calendar } from './BigCalendar'
 import Todos from './Components/Todos.jsx';
 import AddTodo from './Components/AddTodo.jsx';
 import Notes from './Components/Notes.jsx';
@@ -122,24 +124,41 @@ class App extends Component {
     return (
       <div className="App">
 
-        <Navbar/>
+          <div>
+            <Header as='h2' icon textAlign='center'>
+              <Icon name='calendar' circular />
+              <Header.Content>
+                Hello { this.state.name }
+              </Header.Content>
+            </Header>
+          </div>
+          <Grid>
 
-        <div>
-          <Header as='h2' icon textAlign='center'>
-            <Icon name='calendar' circular />
-            <Header.Content>
-              Hello { this.state.name }
-            </Header.Content>
-          </Header>
-        </div>
-        <Basic/>
-        <AddTodo addTodo={this.handleAddTodo.bind(this)}/>
-        <Todos todos={this.state.todos} onDelete={this.handleDeleteTodo.bind(this)} />
-        <br/>
-        <AddNote addNote={this.handleAddNote.bind(this)}/>
-        <Notes notes={this.state.notes} onDelete={this.handleDeleteNote.bind(this)}/>
-        <br/>
-        <Contacts contacts={this.state.contacts} addContact={this.handleAdd.bind(this)} />
+          <Navbar s={this.state}/>
+
+          <Grid.Column stretched width={12}>
+            <Segment>
+
+              <div id="content">
+                {/* VARIABLE CONTENT IS DISPLAYED HERE */}
+                <Switch>
+                  <Route exact path='/' render= {() => (
+                    <Calendar />
+                  )}/>
+                  <Route exact path='/todos' render= {() => (
+                    <Todos todos={this.state.todos} addTodo={this.handleAddTodo.bind(this)} onDelete={this.handleDeleteTodo.bind(this)} />
+                  )}/>
+                  <Route exact path='/contacts' render= {() => (
+                    <Contacts contacts={this.state.contacts} addContact={this.handleAdd.bind(this)} />
+                  )}/>
+                  <Route exact path='/notes' render= {() => (
+                    <Notes notes={this.state.notes} addNote={this.handleAddNote.bind(this)} onDelete={this.handleDeleteNote.bind(this)}/>
+                  )}/>
+                </Switch>
+              </div>
+            </Segment>
+          </Grid.Column>
+        </Grid>
       </div>
     );
   }
