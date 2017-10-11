@@ -23,7 +23,7 @@ class AddTodo extends Component {
           description: this.state.value
         }
       }, function () {
-        this.props.addTodo(this.state.newTodo);
+        this.props.addTodo("todos" , this.state.newTodo);
       });
     }
     e.preventDefault();
