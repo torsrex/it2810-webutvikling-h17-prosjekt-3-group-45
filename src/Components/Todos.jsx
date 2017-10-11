@@ -6,7 +6,7 @@ import AddTodo from './AddTodo';
 class Todos extends Component{
 
   deleteTodo(id){
-    this.props.onDelete(id);
+    this.props.onDelete("todos", id);
   }
 
   render(){

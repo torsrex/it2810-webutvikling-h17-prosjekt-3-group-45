@@ -65,22 +65,23 @@ class App extends Component {
     localStorage.setItem('squad', JSON.stringify(this.state));
   }
 
-  handleDeleteTodo(id){
-    let todos = this.state.todos;
-    let index = todos.findIndex(x => x.id === id);
-    todos.splice(index, 1);
-    this.setState({todos: todos});
+  handleDelete(key, id){
+    let oldVals
+    let index
+    if (key === "todos") {
+      oldVals = this.state.todos;
+      index = oldVals.findIndex(x => x.id === id);
+    } else if (key === "notes") {
+      oldVals = this.state.notes;
+      index  = oldVals.findIndex(x => x.id === id);
+    } else {
+      console.log(key + " is not a value in this.state");
+    }
+    oldVals.splice(index, 1);
+    this.setState({key}: oldVals);
     localStorage.setItem('squad', JSON.stringify(this.state));
   }
-
-  handleDeleteNote(id){
-    let notes = this.state.notes;
-    let index = notes.findIndex(x => x.id === id);
-    notes.splice(index, 1);
-    this.setState({notes: notes});
-    localStorage.setItem('squad', JSON.stringify(this.state));
-  }
-
+  
   handleSetName(name){
     this.setState({name:name});
     let state = this.state;
@@ -119,13 +120,13 @@ class App extends Component {
                     <Calendar />
                   )}/>
                   <Route exact path='/todos' render= {() => (
-                    <Todos todos={this.state.todos} addTodo={this.handleAdd.bind(this)} onDelete={this.handleDeleteTodo.bind(this)} />
+                    <Todos todos={this.state.todos} addTodo={this.handleAdd.bind(this)} onDelete={this.handleDelete.bind(this)} />
                   )}/>
                   <Route exact path='/contacts' render= {() => (
                     <Contacts contacts={this.state.contacts} addContact={this.handleAdd.bind(this)} />
                   )}/>
                   <Route exact path='/notes' render= {() => (
-                    <Notes notes={this.state.notes} addNote={this.handleAdd.bind(this)} onDelete={this.handleDeleteNote.bind(this)}/>
+                    <Notes notes={this.state.notes} addNote={this.handleAdd.bind(this)} onDelete={this.handleDelete.bind(this)}/>
                   )}/>
                 </Switch>
               </div>
