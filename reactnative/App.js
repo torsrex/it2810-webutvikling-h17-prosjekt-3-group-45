@@ -8,6 +8,7 @@ import Todos from './Components/Todos';
 import AddTodo from './Components/AddTodo';
 import Notes from './Components/Notes';
 import AddNote from './Components/AddNote';
+import Contacts from './Components/Contacts';
 
 
 export default class App extends React.Component {
@@ -23,7 +24,9 @@ export default class App extends React.Component {
       notes: [
         {id: uuid.v4(), title: 'Make todolist', description: 'Tødden Tøddvik has to make the todolist'}
       ],
-      contacts: []
+      contacts: [
+        {name: "Tødden Tøddvik", email: "tødden@gmail.com", phone: "22334455"}
+      ]
     }
     this.handleNameChange = this.handleNameChange.bind(this);
   }
@@ -58,6 +61,12 @@ export default class App extends React.Component {
     this.setState({notes: notes});
   }
 
+  handleAddContact(contact){
+    let contacts = this.state.contacts;
+    contacts.push(contact);
+    this.setState({contacts:contacts});
+  }
+
   render() {
     if (this.state.name === '') {
       return (
@@ -72,8 +81,11 @@ export default class App extends React.Component {
         <Text> Hello there {this.state.name} </Text>
         <AddTodo addTodo={this.handleAddTodo.bind(this)}/>
         <Todos todos={this.state.todos} onDelete={this.handleDeleteTodo.bind(this)} />
+
         <AddNote addNote={this.handleAddNote.bind(this)}/>
         <Notes notes={this.state.notes} onDelete={this.handleDeleteNote.bind(this)}/>
+
+        <Contacts contacts={this.state.contacts} addContact={this.handleAddContact.bind(this)} />
         </View>
       );
   }
