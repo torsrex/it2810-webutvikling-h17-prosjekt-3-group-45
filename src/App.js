@@ -3,7 +3,7 @@ import uuid from 'uuid';
 import logo from './logo.svg';
 import './App.css';
 import Contacts from './Contacts';
-import { Basic } from './BigCalendar'
+import { Calendar } from './BigCalendar'
 import Todos from './Components/Todos.jsx';
 import AddTodo from './Components/AddTodo.jsx';
 import Notes from './Components/Notes.jsx';
@@ -115,7 +115,7 @@ class App extends Component {
             </Header.Content>
           </Header>
         </div>
-        <Basic/>
+        <Calendar/>
         <AddTodo addTodo={this.handleAddTodo.bind(this)}/>
         <Todos todos={this.state.todos} onDelete={this.handleDeleteTodo.bind(this)} />
         <br/>
