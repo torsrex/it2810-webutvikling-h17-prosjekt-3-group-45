@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter } from 'react-router-dom'
 import uuid from 'uuid';
 import logo from './logo.svg';
 import './App.css';
@@ -105,7 +106,7 @@ class App extends Component {
     return (
       <div className="App">
 
-        <Navbar/>
+        <Navbar s={this.state}/>
 
         <div>
           <Header as='h2' icon textAlign='center'>

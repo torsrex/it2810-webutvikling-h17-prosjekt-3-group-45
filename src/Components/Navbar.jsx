@@ -5,6 +5,7 @@ import App from '../App';
 import Todos from './Todos';
 import Contacts from '../Contacts';
 import Basic from '../BigCalendar';
+import Notes from './Notes'
 
 class Navbar extends Component {
   constructor(props){
@@ -47,15 +48,23 @@ class Navbar extends Component {
           <Grid.Column stretched width={12}>
             <Segment>
 
-              {/*<Router>*/}
-                {/*<Route exact path='/' component={Basic}/>*/}
-                {/*<Route path='/todos' component={Todos}/>*/}
-                {/*<Route path='/contacts' component={Contacts}/>*/}
-              {/*</Router>*/}
-
               <div id="content">
                 {/* VARIABLE CONTENT IS DISPLAYED HERE */}
-
+                <Switch>
+                  <Route exact path='/' render= {() => (
+                    <Basic />
+                  )}/>
+                  <Route exact path='/todos' render= {() => (
+                    <Todos todos={this.props.s.todos} />
+                  )}/>
+                  <Route exact path='/contacts' render= {() => (
+                    <Contacts contacts={this.props.s.contacts} addContact={ () => {} } />
+                    // TODO: implement addContact
+                  )}/>
+                  <Route exact path='/notes' render= {() => (
+                    <Notes notes={this.props.s.notes} />
+                  )}/>
+                </Switch>
               </div>
 
             </Segment>
