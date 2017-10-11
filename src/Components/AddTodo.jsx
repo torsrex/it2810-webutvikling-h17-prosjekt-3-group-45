@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import uuid from 'uuid';
-import {Button, Checkbox, Form, Grid, Container} from 'semantic-ui-react';
+import {Button, Form } from 'semantic-ui-react';
 
 class AddTodo extends Component {
 

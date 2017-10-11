@@ -11,7 +11,7 @@ export default class Contacts extends React.Component{
         {this.props.contacts.map(function(contact, index){
           return <Contact key={index} contactName={ contact.name } contactEmail={ contact.email } contactPhone={ contact.phone }/>
         })}
-
+        <br />
         <AddContact addContact={this.props.addContact} />
       </div>
     )

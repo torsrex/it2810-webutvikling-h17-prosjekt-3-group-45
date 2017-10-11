@@ -23,8 +23,8 @@ class Todos extends Component{
     return (
       <div className="Todo">
         <h3>My Todos</h3>
+        {todoItems}<br />
         <AddTodo addTodo={this.props.addTodo} />
-        {todoItems}
       </div>
     );
   }

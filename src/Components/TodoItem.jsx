@@ -13,6 +13,7 @@ class TodoItem extends Component{
         <b>{this.props.todo.title}</b>: {this.props.todo.description}&nbsp;&nbsp;
         <Button size="mini" color="red" title="Delete" circular icon="trash outline" onClick={this.deleteTodo.bind(this, this.props.todo.id)} />
       </li>
+
     );
   }
 }
