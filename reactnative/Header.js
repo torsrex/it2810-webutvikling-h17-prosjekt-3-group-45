@@ -6,6 +6,7 @@ export default class Header extends React.Component {
     return (
       <View>
         <Text>Squadteam 45!</Text>
+        <Text>It seems that you are new here. What's your name? </Text>
       </View>
     );
   }
