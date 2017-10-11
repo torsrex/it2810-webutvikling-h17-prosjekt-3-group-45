@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
-import { Menu, Grid, Segment, Sticky } from 'semantic-ui-react';
-import { Link, Switch, Route, Router } from 'react-router-dom';
-import App from '../App';
-import Todos from './Todos';
-import Contacts from '../Contacts';
-import Basic from '../BigCalendar';
-import Notes from './Notes'
+import { Menu, Grid, Sticky } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 class Navbar extends Component {
   constructor(props){

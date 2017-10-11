@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import uuid from 'uuid';
-import { Button, Checkbox, Form } from 'semantic-ui-react';
+import { Button, Form } from 'semantic-ui-react';
 
 class AddNote extends Component{
 
@@ -10,7 +10,6 @@ class AddNote extends Component{
       newNote: {}
     }
   }
-
 
   handleSubmit(e){
     if(this.refs.title.value === ''){
@@ -26,16 +25,8 @@ class AddNote extends Component{
         // this.sendThru.bind(this);
       });
   }
-
     e.preventDefault();
-
   }
-
-  // TODO: DO WE NEED THIS FUNCTION? IT IS CURRENTLY NOT REQUIRED
-  // sendThru(){
-  //   this.refs.title.value = '';
-  //   this.refs.description.value='';
-  // }
 
   render(){
     return (

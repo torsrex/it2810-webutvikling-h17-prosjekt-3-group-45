@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import { Menu, Grid, Segment, Sticky } from 'semantic-ui-react';
+import { Grid, Segment, Header, Icon } from 'semantic-ui-react';
+import { Switch, Route } from 'react-router-dom'
 import uuid from 'uuid';
-import logo from './logo.svg';
 import './App.css';
 import Contacts from './Contacts';
 import { Calendar } from './BigCalendar'
 import Todos from './Components/Todos.jsx';
-import AddTodo from './Components/AddTodo.jsx';
 import Notes from './Components/Notes.jsx';
-import AddNote from './Components/AddNote.jsx';
 import SetName from './Components/SetName';
-
-import { Header, Icon, Image } from 'semantic-ui-react'
 import Navbar from "./Components/Navbar";
 
 class App extends Component {
