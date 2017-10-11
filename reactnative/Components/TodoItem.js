@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import { Button } from 'semantic-ui-react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
 class TodoItem extends Component{

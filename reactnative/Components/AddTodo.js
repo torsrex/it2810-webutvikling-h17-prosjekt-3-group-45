@@ -16,20 +16,19 @@ class AddTodo extends React.Component {
 
 
   handleSubmit(e) {
-    if (this.refs.title.value === '') {
+    if (this.state.title === '') {
       alert("Title required");
     } else {
       this.setState({
         newTodo: {
           id: uuid.v4(),
-          title: this.refs.title.value,
-          description: this.state.value
+          title: this.state.title,
+          description: this.state.description
         }
       }, function () {
         this.props.addTodo(this.state.newTodo);
       });
     }
-    e.preventDefault();
   }
 
   _handlePress() {
@@ -57,7 +56,7 @@ class AddTodo extends React.Component {
 
       <Button
         title = "Add todo"
-        onPress={() => this._handlePress()}
+        onPress={() => this.handleSubmit()}
       />
     </View>
     );
