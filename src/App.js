@@ -54,6 +54,23 @@ class App extends Component {
     localStorage.setItem('squad', JSON.stringify(this.state));
   }
 
+  handleAdd(key, value){
+    let oldVals
+    if (key === "contacts"){
+      oldVals = this.state.contacts;
+    } else if (key === "todos") {
+      oldVals = this.state.todos;
+    } else if (key === "notes") {
+      oldVals = this.state.notes;
+    } else {
+      console.log(key + " is not a value in this.state");
+    }
+    oldVals.push(value);
+    this.setState({key}: oldVals);
+    localStorage.setItem('squad', JSON.stringify(this.state));
+
+  }
+
   handleAddTodo(todo){
     let todos = this.state.todos;
     todos.push(todo);
@@ -132,7 +149,7 @@ class App extends Component {
                     <Todos todos={this.state.todos} addTodo={this.handleAddTodo.bind(this)} onDelete={this.handleDeleteTodo.bind(this)} />
                   )}/>
                   <Route exact path='/contacts' render= {() => (
-                    <Contacts contacts={this.state.contacts} addContact={this.handleAddContact.bind(this)} />
+                    <Contacts contacts={this.state.contacts} addContact={this.handleAdd.bind(this)} />
                   )}/>
                   <Route exact path='/notes' render= {() => (
                     <Notes notes={this.state.notes} addNote={this.handleAddNote.bind(this)} onDelete={this.handleDeleteNote.bind(this)}/>
