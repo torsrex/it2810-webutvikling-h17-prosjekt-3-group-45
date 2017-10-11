@@ -1,22 +1,27 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
-import Header from './Header';
-import Name from './Name';
 import uuid from 'uuid';
 
-import Todos from './Todos';
-import AddTodo from './AddTodo';
+import Header from './Components/Header';
+import Name from './Components/Name';
+import Todos from './Components/Todos';
+import AddTodo from './Components/AddTodo';
+import Notes from './Components/Notes';
+import AddNote from './Components/AddNote';
 
 
 export default class App extends React.Component {
   constructor(props){
     super(props);
     this.state={
-      name: 'Jeff',
+      name: 'Bortne',
       todos: [
       {id: uuid.v4(), title: 'Make todolist', description: 'Tødden Tøddvik has to make the todolist'},
       {id: uuid.v4(), title: 'Handle contacts', description: 'Ugle McUglesen \'boutta hook us up with contact info'},
       {id: uuid.v4(), title: 'Hans Vette', description: 'Slap him in the 4Head'}
+      ],
+      notes: [
+        {id: uuid.v4(), title: 'Make todolist', description: 'Tødden Tøddvik has to make the todolist'}
       ],
       contacts: []
     }
@@ -40,6 +45,19 @@ export default class App extends React.Component {
     this.setState({todos: todos});
   }
 
+  handleAddNote(note){
+    let notes = this.state.notes;
+    notes.push(note);
+    this.setState({notes: notes});
+  }
+
+  handleDeleteNote(id){
+    let notes = this.state.notes;
+    let index = notes.findIndex(x => x.id === id);
+    notes.splice(index, 1);
+    this.setState({notes: notes});
+  }
+
   render() {
     if (this.state.name === '') {
       return (
@@ -51,12 +69,18 @@ export default class App extends React.Component {
     }
       return (
         <View style={styles.container}>
-          <AddTodo addTodo={this.handleAddTodo.bind(this)}/>
-          <Todos todos={this.state.todos} onDelete={this.handleDeleteTodo.bind(this)} />
+        <Text> Hello there {this.state.name} </Text>
+        <AddTodo addTodo={this.handleAddTodo.bind(this)}/>
+        <Todos todos={this.state.todos} onDelete={this.handleDeleteTodo.bind(this)} />
+        <AddNote addNote={this.handleAddNote.bind(this)}/>
+        <Notes notes={this.state.notes} onDelete={this.handleDeleteNote.bind(this)}/>
         </View>
       );
   }
 }
+
+//<AddTodo addTodo={this.handleAddTodo.bind(this)}/>
+//<Todos todos={this.state.todos} onDelete={this.handleDeleteTodo.bind(this)} />
 
 const styles = StyleSheet.create({
   container: {
