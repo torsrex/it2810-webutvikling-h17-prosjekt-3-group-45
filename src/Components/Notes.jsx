@@ -22,8 +22,8 @@ class Notes extends Component{
     return (
       <div className="Notes">
         <h3>My Notes</h3>
+        {noteItems}<br />
         <AddNote addNote={this.props.addNote} />
-        {noteItems}
       </div>
     );
   }
