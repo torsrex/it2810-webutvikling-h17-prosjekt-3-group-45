@@ -17,6 +17,7 @@ export class Calendar extends React.Component{
     this.state={
       eventList : [],
       editModalShow : false,
+      addModalShow : false,
       currentEvent : {'title':'placeholer',
         'start': new Date(),
         'end': new Date()},
@@ -57,7 +58,8 @@ export class Calendar extends React.Component{
       'end': new Date(Number(endDate[0]), Number(endDate[1]) - 1, Number(endDate[2]),
         Number(endTime[0]), Number(endTime[1]), Number(endTime[2]))
     });
-    this.setState({ eventList: newEvent });
+    this.setState({ eventList : newEvent, addModalShow : false });
+    this.closeAdd();
   }
 
   addEvent(info) {
@@ -78,7 +80,8 @@ export class Calendar extends React.Component{
   }
 
   close = () => this.setState({ editModalShow: false });
-
+  openAdd = () => this.setState({addModalShow : true});
+  closeAdd = () => this.setState({addModalShow : false});
   removeEvent(event){
     let updatedEvent = this.state.eventList;
     for(let i = 0; i < updatedEvent.length; i++){
@@ -102,8 +105,13 @@ export class Calendar extends React.Component{
           Click an event to see more info, or
           drag the mouse over the calendar to select a date/time range.
         </h3>
-        <Modal trigger={<Button positive>Add Event</Button>}
-               header="Plan new Event">
+        <Modal trigger={<Button positive onClick={this.openAdd}>Add Event</Button>}
+               header="Plan new Event"
+               open = {this.state.addModalShow}
+               closeOnEscape = {this.closeAdd}
+               closeOnDimmerClick = {this.closeAdd}
+               >
+
           <Modal.Content>
             <Form>
               <Form.Field>
@@ -145,7 +153,7 @@ export class Calendar extends React.Component{
                   />
                 </div>
               </Form.Field>
-              <Button negative>Cancel</Button>
+              <Button negative onClick={this.closeAdd}>Cancel</Button>
               <Button positive onClick={() => this.addEventFromButton(
                 this.state.bigInputMomentStart,
                 this.state.bigInputMomentEnd
