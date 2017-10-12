@@ -15,7 +15,7 @@ export default class App extends React.Component {
   constructor(props){
     super(props);
     this.state={
-      name: 'Bortne',
+      name: '',
       todos: [
       {id: uuid.v4(), title: 'Make todolist', description: 'Tødden Tøddvik has to make the todolist'},
       {id: uuid.v4(), title: 'Handle contacts', description: 'Ugle McUglesen \'boutta hook us up with contact info'},
