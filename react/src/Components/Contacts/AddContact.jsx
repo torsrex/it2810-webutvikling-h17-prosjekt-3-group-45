@@ -1,4 +1,5 @@
 import React from 'react';
+import uuid from 'uuid';
 import { Button, Form } from 'semantic-ui-react'
 
 export class AddContact extends React.Component{
@@ -9,16 +10,25 @@ export class AddContact extends React.Component{
     }
   }
 
-  handleSubmit(e){
+  handleSubmit(e) {
+    if (this.refs.name.value === '') {
+      alert("Contact name required");
+    }
+    else if(this.refs.email.value === '' && this.refs.phone.value === ''){
+      alert("Email or phone number required");
+    } else {
+      this.setState({
+        newContact: {
+          id: uuid.v4(),
+          name:this.refs.name.value,
+          email:this.refs.email.value,
+          phone:this.refs.phone.value
+        }
+      }, function () {
+        this.props.addContact("contacts" , this.state.newContact);
+      });
+    }
     e.preventDefault();
-
-    this.setState({newContact:{
-      name:this.refs.name.value,
-      email:this.refs.email.value,
-      phone:this.refs.phone.value
-    }}, function(){
-      this.props.addContact('contacts', this.state.newContact);
-    });
   }
 
   render(){
