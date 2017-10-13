@@ -1,19 +1,31 @@
 import React from 'react';
-import { Contact } from './Contact';
+import { Contact } from './ContactItem';
 import { AddContact } from './AddContact';
 
 export default class Contacts extends React.Component{
-  render(){
-    return(
-      <div>
-        <h2>Your Contacts:</h2>
 
-        {this.props.contacts.map(function(contact, index){
-          return <Contact key={index} contactName={ contact.name } contactEmail={ contact.email } contactPhone={ contact.phone }/>
-        })}
-        <br />
+  deleteContact(id){
+    this.props.onDelete("contacts", id);
+  }
+
+  render(){
+
+    let contactItems;
+    if(this.props.contacts){
+      contactItems = this.props.contacts.map(contact => {
+        return(
+          <Contact onDelete={this.deleteContact.bind(this)} key={contact.id} contact={contact}/>
+        )
+      });
+    }
+
+    return (
+      <div className="Contacts">
+        <h3>My Contacts</h3>
+        {contactItems}<br />
         <AddContact addContact={this.props.addContact} />
       </div>
-    )
+    );
   }
+
 }
