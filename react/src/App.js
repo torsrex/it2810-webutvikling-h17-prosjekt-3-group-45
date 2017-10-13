@@ -3,10 +3,10 @@ import { Grid, Segment, Header, Icon } from 'semantic-ui-react';
 import { Switch, Route } from 'react-router-dom'
 import uuid from 'uuid';
 import './App.css';
-import Contacts from './Contacts';
-import { Calendar } from './BigCalendar'
-import Todos from './Components/Todos.jsx';
-import Notes from './Components/Notes.jsx';
+import Contacts from './Components/Contacts/Contacts';
+import { Calendar } from './Components/Calendar/BigCalendar'
+import Todos from './Components/Todos/Todos.jsx';
+import Notes from './Components/Notes/Notes.jsx';
 import SetName from './Components/SetName';
 import Navbar from "./Components/Navbar";
 
@@ -81,7 +81,7 @@ class App extends Component {
     this.setState({key}: oldVals);
     localStorage.setItem('squad', JSON.stringify(this.state));
   }
-  
+
   handleSetName(name){
     this.setState({name:name});
     let state = this.state;
