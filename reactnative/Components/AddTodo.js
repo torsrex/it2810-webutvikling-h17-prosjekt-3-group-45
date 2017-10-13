@@ -31,11 +31,6 @@ class AddTodo extends React.Component {
     }
   }
 
-  _handlePress() {
-   console.log(this.state.title);
-   console.log(this.state.description);
-}
-
   render() {
     return(
     <View style={styles.TextInput}>
@@ -65,11 +60,11 @@ class AddTodo extends React.Component {
 
 const styles = StyleSheet.create({
   TextInput : {
-    flex : 1,
     justifyContent: 'center',
     alignSelf: 'center',
     width : 350,
-    paddingTop : 10,
+    paddingTop : 50,
+    paddingBottom: 50,
   },
 });
 

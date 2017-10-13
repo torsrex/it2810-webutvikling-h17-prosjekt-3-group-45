@@ -13,5 +13,3 @@ export class Contact extends React.Component{
         )
     }
 }
-//<Text>{this.props.contactEmail}</Text>
-//<Text>{this.props.contactPhone}</Text>

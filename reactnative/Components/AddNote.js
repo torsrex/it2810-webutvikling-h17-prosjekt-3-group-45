@@ -13,7 +13,6 @@ class AddNote extends Component{
     }
   }
 
-
   handleSubmit(e){
     if(this.state.title === ''){
       alert("Title required");
@@ -57,11 +56,11 @@ class AddNote extends Component{
 
 const styles = StyleSheet.create({
   TextInput : {
-    flex : 1,
     justifyContent: 'center',
     alignSelf: 'center',
     width : 350,
     paddingTop : 10,
+    paddingBottom: 30,
   },
 });
 export default AddNote;
