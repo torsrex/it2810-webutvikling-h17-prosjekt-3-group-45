@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import uuid from 'uuid';
-import {Button, Checkbox, Form, Grid, Container} from 'semantic-ui-react';
+import {Button, Form } from 'semantic-ui-react';
 
 class AddTodo extends Component {
 
@@ -23,7 +23,7 @@ class AddTodo extends Component {
           description: this.state.value
         }
       }, function () {
-        this.props.addTodo(this.state.newTodo);
+        this.props.addTodo("todos" , this.state.newTodo);
       });
     }
     e.preventDefault();

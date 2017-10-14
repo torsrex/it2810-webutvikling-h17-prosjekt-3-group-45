@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import NoteItem from './NoteItem';
+import AddNote from './AddNote';
 
 class Notes extends Component{
 
   deleteNote(id){
-    this.props.onDelete(id);
+    this.props.onDelete("notes", id);
   }
 
   render(){
@@ -21,7 +22,8 @@ class Notes extends Component{
     return (
       <div className="Notes">
         <h3>My Notes</h3>
-        {noteItems}
+        {noteItems}<br />
+        <AddNote addNote={this.props.addNote} />
       </div>
     );
   }

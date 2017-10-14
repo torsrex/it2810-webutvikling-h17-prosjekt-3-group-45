@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
+import { Grid, Segment, Header, Icon } from 'semantic-ui-react';
+import { Switch, Route } from 'react-router-dom'
 import uuid from 'uuid';
-import logo from './logo.svg';
 import './App.css';
 import Contacts from './Contacts';
-import { Basic } from './BigCalendar'
+import { Calendar } from './BigCalendar'
 import Todos from './Components/Todos.jsx';
-import AddTodo from './Components/AddTodo.jsx';
 import Notes from './Components/Notes.jsx';
-import AddNote from './Components/AddNote.jsx';
 import SetName from './Components/SetName';
-
-import { Header, Icon, Image } from 'semantic-ui-react'
 import Navbar from "./Components/Navbar";
 
 class App extends Component {
@@ -52,43 +49,39 @@ class App extends Component {
     localStorage.setItem('squad', JSON.stringify(this.state));
   }
 
-  handleAddTodo(todo){
-    let todos = this.state.todos;
-    todos.push(todo);
-    this.setState({todos: todos});
+  handleAdd(key, value){
+    let oldVals
+    if (key === "contacts"){
+      oldVals = this.state.contacts;
+    } else if (key === "todos") {
+      oldVals = this.state.todos;
+    } else if (key === "notes") {
+      oldVals = this.state.notes;
+    } else {
+      console.log(key + " is not a value in this.state");
+    }
+    oldVals.push(value);
+    this.setState({key}: oldVals);
     localStorage.setItem('squad', JSON.stringify(this.state));
   }
 
-  handleDeleteTodo(id){
-    let todos = this.state.todos;
-    let index = todos.findIndex(x => x.id === id);
-    todos.splice(index, 1);
-    this.setState({todos: todos});
+  handleDelete(key, id){
+    let oldVals
+    let index
+    if (key === "todos") {
+      oldVals = this.state.todos;
+      index = oldVals.findIndex(x => x.id === id);
+    } else if (key === "notes") {
+      oldVals = this.state.notes;
+      index  = oldVals.findIndex(x => x.id === id);
+    } else {
+      console.log(key + " is not a value in this.state");
+    }
+    oldVals.splice(index, 1);
+    this.setState({key}: oldVals);
     localStorage.setItem('squad', JSON.stringify(this.state));
   }
-
-  handleAddNote(note){
-    let notes = this.state.notes;
-    notes.push(note);
-    this.setState({notes: notes});
-    localStorage.setItem('squad', JSON.stringify(this.state));
-  }
-
-  handleDeleteNote(id){
-    let notes = this.state.notes;
-    let index = notes.findIndex(x => x.id === id);
-    notes.splice(index, 1);
-    this.setState({notes: notes});
-    localStorage.setItem('squad', JSON.stringify(this.state));
-  }
-
-  handleAddContact(contact){
-    let contacts = this.state.contacts;
-    contacts.push(contact);
-    this.setState({contacts:contacts});
-    localStorage.setItem('squad', JSON.stringify(this.state));
-  }
-
+  
   handleSetName(name){
     this.setState({name:name});
     let state = this.state;
@@ -105,24 +98,41 @@ class App extends Component {
     return (
       <div className="App">
 
-        <Navbar/>
+          <div>
+            <Header as='h2' icon textAlign='center'>
+              <Icon name='calendar' circular />
+              <Header.Content>
+                Hello { this.state.name }
+              </Header.Content>
+            </Header>
+          </div>
+          <Grid>
 
-        <div>
-          <Header as='h2' icon textAlign='center'>
-            <Icon name='calendar' circular />
-            <Header.Content>
-              Hello { this.state.name }
-            </Header.Content>
-          </Header>
-        </div>
-        <Basic/>
-        <AddTodo addTodo={this.handleAddTodo.bind(this)}/>
-        <Todos todos={this.state.todos} onDelete={this.handleDeleteTodo.bind(this)} />
-        <br/>
-        <AddNote addNote={this.handleAddNote.bind(this)}/>
-        <Notes notes={this.state.notes} onDelete={this.handleDeleteNote.bind(this)}/>
-        <br/>
-        <Contacts contacts={this.state.contacts} addContact={this.handleAddContact.bind(this)} />
+          <Navbar s={this.state}/>
+
+          <Grid.Column stretched width={12}>
+            <Segment>
+
+              <div id="content">
+                {/* VARIABLE CONTENT IS DISPLAYED HERE */}
+                <Switch>
+                  <Route exact path='/' render= {() => (
+                    <Calendar />
+                  )}/>
+                  <Route exact path='/todos' render= {() => (
+                    <Todos todos={this.state.todos} addTodo={this.handleAdd.bind(this)} onDelete={this.handleDelete.bind(this)} />
+                  )}/>
+                  <Route exact path='/contacts' render= {() => (
+                    <Contacts contacts={this.state.contacts} addContact={this.handleAdd.bind(this)} />
+                  )}/>
+                  <Route exact path='/notes' render= {() => (
+                    <Notes notes={this.state.notes} addNote={this.handleAdd.bind(this)} onDelete={this.handleDelete.bind(this)}/>
+                  )}/>
+                </Switch>
+              </div>
+            </Segment>
+          </Grid.Column>
+        </Grid>
       </div>
     );
   }

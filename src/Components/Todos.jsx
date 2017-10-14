@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import TodoItem from './TodoItem';
+import AddTodo from './AddTodo';
+
 
 class Todos extends Component{
 
   deleteTodo(id){
-    this.props.onDelete(id);
+    this.props.onDelete("todos", id);
   }
 
   render(){
@@ -21,7 +23,8 @@ class Todos extends Component{
     return (
       <div className="Todo">
         <h3>My Todos</h3>
-        {todoItems}
+        {todoItems}<br />
+        <AddTodo addTodo={this.props.addTodo} />
       </div>
     );
   }

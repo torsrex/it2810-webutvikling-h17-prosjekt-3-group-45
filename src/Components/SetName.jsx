@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Form, Grid, Header, Icon, Message, Segment } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Icon, Segment } from 'semantic-ui-react'
 
 export class SetName extends React.Component{
   constructor(){

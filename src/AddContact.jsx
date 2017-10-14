@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Checkbox, Form } from 'semantic-ui-react'
+import { Button, Form } from 'semantic-ui-react'
 
 export class AddContact extends React.Component{
   constructor(){
@@ -17,7 +17,7 @@ export class AddContact extends React.Component{
       email:this.refs.email.value,
       phone:this.refs.phone.value
     }}, function(){
-      this.props.addContact(this.state.newContact);
+      this.props.addContact('contacts', this.state.newContact);
     });
   }
 
@@ -39,7 +39,7 @@ export class AddContact extends React.Component{
             <label>Phone number</label>
             <input ref="phone" placeholder='Enter your phone number...' />
           </Form.Field>
-          <Button type='submit'>Add Contact</Button>
+          <Button color="green" type='submit'>Add Contact</Button>
         </Form>
 
       </div>
