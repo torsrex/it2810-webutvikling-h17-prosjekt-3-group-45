@@ -1,7 +1,7 @@
 import React from 'react';
 import { Contact } from './Contact';
 import { AddContact } from './AddContact';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView } from 'react-native';
 import uuid from 'uuid';
 
 export default class Contacts extends React.Component{
@@ -39,10 +39,10 @@ export default class Contacts extends React.Component{
     }
 
     return(
-      <View style={styles.TextInput}>
+      <ScrollView style={styles.TextInput}>
         <AddContact addContact={this.handleAddContact.bind(this)} />
         {Contacts}
-      </View>
+      </ScrollView>
     )
   }
 }

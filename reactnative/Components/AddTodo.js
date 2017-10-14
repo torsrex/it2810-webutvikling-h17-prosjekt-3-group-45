@@ -18,18 +18,23 @@ class AddTodo extends React.Component {
   handleSubmit(e) {
     if (this.state.title === '') {
       alert("Title required");
-    } else {
-      this.setState({
-        newTodo: {
-          id: uuid.v4(),
-          title: this.state.title,
-          description: this.state.description
-        }
-      }, function () {
-        this.props.addTodo(this.state.newTodo);
-      });
     }
-  }
+    else {
+        this.setState({
+          newTodo: {
+            id: uuid.v4(),
+            title: this.state.title,
+            description: this.state.description
+          }
+        }, function () {
+          this.props.addTodo(this.state.newTodo);
+          this.setState({title : '', description: ''})
+          this.textInputRef1.clear();
+          this.textInputRef2.clear();
+        });
+    }
+}
+
 
   render() {
     return(
@@ -39,14 +44,23 @@ class AddTodo extends React.Component {
     <TextInput
       label = "Title"
       placeholder = "Enter title!"
+      autoCapitalize = 'sentences'
       onChangeText={(text) => this.setState({title:text})}
+      ref={ref => this.textInputRef1 = ref}
+      value={this.state.title}
     />
 
     <TextInput
-      multiline={true}
       label = "Description"
       placeholder = "Enter a description to todo!"
+      autoCapitalize = 'sentences'
       onChangeText={(text) => this.setState({description:text})}
+      onSubmitEditing={(event) => {
+        this.handleSubmit();
+        keyboardType = 'none'
+      }}
+      ref={ref => this.textInputRef2 = ref}
+      value={this.state.description}
     />
 
       <Button

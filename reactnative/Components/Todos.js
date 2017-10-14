@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TodoItem from './TodoItem';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, ScrollView } from 'react-native';
 import AddTodo from './AddTodo';
 import uuid from 'uuid';
 
@@ -44,10 +44,10 @@ class Todos extends React.Component{
     }
 
     return (
-      <View style={styles.TextInput}>
+      <ScrollView style={styles.TextInput}>
         <AddTodo addTodo={this.handleAddTodo.bind(this)}/>
         {todoItems}
-      </View>
+      </ScrollView>
     );
   }
 }

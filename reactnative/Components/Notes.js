@@ -3,7 +3,7 @@ import NoteItem from './NoteItem';
 import AddNote from './AddNote';
 import uuid from 'uuid';
 
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, ScrollView } from 'react-native';
 
 class Notes extends Component{
   constructor(props){
@@ -11,6 +11,10 @@ class Notes extends Component{
     this.state={
       notes: [
         {id: uuid.v4(), title: 'Make todolist', description: 'Tødden Tøddvik has to make the todolist'},
+        {id: uuid.v4(), title: "Make things great again", description : "Become president on day"},
+        {id: uuid.v4(), title: "Make things great again", description : "Become president on day"},
+        {id: uuid.v4(), title: "Make things great again", description : "Become president on day"},
+        {id: uuid.v4(), title: "Make things great again", description : "Become president on day"},
         {id: uuid.v4(), title: "Make things great again", description : "Become president on day"}
       ]
     }
@@ -40,10 +44,10 @@ class Notes extends Component{
     }
 
     return (
-      <View style={styles.TextInput}>
+      <ScrollView style={styles.TextInput}>
         <AddNote addNote={this.handleAddNote.bind(this)}/>
         {noteItems}
-      </View>
+      </ScrollView>
     );
   }
 }

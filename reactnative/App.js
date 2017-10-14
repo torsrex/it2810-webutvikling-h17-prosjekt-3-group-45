@@ -5,10 +5,10 @@ import Header from './Components/Header';
 import Name from './Components/Name';
 import Todos from './Components/Todos';
 import Notes from './Components/Notes';
+import Welcome from './Components/Welcome';
 import Contacts from './Components/Contacts';
 
 const MainScreenNavigator = TabNavigator({
-  //Welcome: {screen: Header}, //Each screen shows a separate component
   Todo: {screen: Todos},
   Notes: {screen: Notes},
   Contacts: {screen : Contacts},
@@ -17,10 +17,9 @@ const MainScreenNavigator = TabNavigator({
 
 const PersonalManager = StackNavigator({
     Home: {
-      screen: MainScreenNavigator, //Adds navigator to top
+      screen: MainScreenNavigator,
       navigationOptions: {
-        title: 'Personal manager', //Sets title of app
-        backgroundColor : 'red',
+        title: 'Personal manager',
       },
     },
   });

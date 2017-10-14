@@ -23,6 +23,9 @@ class AddNote extends Component{
         description: this.state.description
       }}, function(){
         this.props.addNote(this.state.newNote);
+        this.setState({title : '', description: ''})
+        this.textInputRef1.clear();
+        this.textInputRef2.clear();
       });
   }
   }
@@ -35,14 +38,23 @@ class AddNote extends Component{
     <TextInput
       label = "Title"
       placeholder = "Enter title to note!"
+      autoCapitalize = 'sentences'
       onChangeText={(text) => this.setState({title:text})}
+      ref={ref => this.textInputRef1 = ref}
+      value={this.state.title}
     />
 
     <TextInput
-      multiline={true}
       label = "Description"
       placeholder = "Enter a description to note!"
+      autoCapitalize = 'sentences'
       onChangeText={(text) => this.setState({description:text})}
+      onSubmitEditing={(event) => {
+        this.handleSubmit();
+        keyboardType = 'none'
+      }}
+      ref={ref => this.textInputRef2 = ref}
+      value={this.state.description}
     />
 
       <Button
