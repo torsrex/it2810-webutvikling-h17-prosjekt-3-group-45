@@ -10,7 +10,8 @@ class Notes extends Component{
     super(props);
     this.state={
       notes: [
-        {id: uuid.v4(), title: 'Make todolist', description: 'Tødden Tøddvik has to make the todolist'}
+        {id: uuid.v4(), title: 'Make todolist', description: 'Tødden Tøddvik has to make the todolist'},
+        {id: uuid.v4(), title: "Make things great again", description : "Become president on day"}
       ]
     }
   }
@@ -39,13 +40,21 @@ class Notes extends Component{
     }
 
     return (
-      <View>
+      <View style={styles.TextInput}>
         <AddNote addNote={this.handleAddNote.bind(this)}/>
-        <Text>My Notes</Text>
         {noteItems}
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  TextInput : {
+    flex : 1,
+    alignSelf : 'flex-start',
+    paddingLeft: 20,
+    paddingRight : 20,
+  },
+});
 
 export default Notes;

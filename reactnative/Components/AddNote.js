@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
   TextInput : {
     justifyContent: 'center',
     alignSelf: 'center',
-    width : 350,
-    paddingTop : 10,
+    width : 300,
+    paddingTop : 50,
     paddingBottom: 30,
   },
 });

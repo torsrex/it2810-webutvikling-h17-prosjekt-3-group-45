@@ -24,7 +24,7 @@ export class AddContact extends React.Component{
 
   render(){
     return(
-      <View>
+      <View style={styles.TextInput}>
         <Text>Add Contact</Text>
 
         <TextInput
@@ -54,3 +54,13 @@ export class AddContact extends React.Component{
     )
   }
 }
+
+const styles = StyleSheet.create({
+  TextInput : {
+    justifyContent: 'center',
+    alignSelf: 'center',
+    width : 300,
+    paddingTop : 50,
+    paddingBottom: 30,
+  },
+});

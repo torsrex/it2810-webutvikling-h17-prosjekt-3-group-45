@@ -9,9 +9,10 @@ class TodoItem extends Component{
 
   render(){
     return (
-      <View>
-        <Text> {this.props.todo.title} : {this.props.todo.description}
-        </Text>
+      <View style={styles.TextInput}>
+        <Text style={{fontWeight : 'bold'}}>{this.props.todo.title} : </Text>
+        <Text>{this.props.todo.description} </Text>
+        <Button color="red" title="Done" circular icon="trash outline" onPress={this.deleteTodo.bind(this, this.props.todo.id)} />
       </View>
     );
   }
@@ -19,8 +20,8 @@ class TodoItem extends Component{
 
 const styles = StyleSheet.create({
   TextInput : {
-    flex : 1,
-    alignSelf: 'center',
+    paddingLeft: 20,
+    paddingTop: 20,
   },
 });
 

@@ -56,6 +56,8 @@ const styles = StyleSheet.create({
   TextInput : {
     flex : 1,
     alignSelf : 'flex-start',
+    paddingLeft: 20,
+    paddingRight : 20,
   },
 });
 
