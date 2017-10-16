@@ -76,13 +76,13 @@ class App extends Component {
       console.log(key + " is not a value in this.state");
     }
     oldVals.push(value);
-    this.setState({key}: oldVals);
+    this.setState({key} : oldVals);
     localStorage.setItem('squad', JSON.stringify(this.state));
   }
 
   handleDelete(key, id){
-    let oldVals
-    let index
+    let oldVals;
+    let index;
     if (key === "todos") {
       oldVals = this.state.todos;
       index = oldVals.findIndex(x => x.id === id);
@@ -156,16 +156,22 @@ class App extends Component {
                 {/* VARIABLE CONTENT IS DISPLAYED HERE */}
                 <Switch>
                   <Route exact path='/' render= {() => (
-                    <Calendar eventList={this.state.eventList} addEvent={this.handleAddEvent.bind(this)}/>
+                    <Calendar events={this.state.eventList}
+                              addEvent={this.handleAddEvent.bind(this)}
+                              rmEvent={this.handleRemoveEvent.bind(this)}/>
                   )}/>
                   <Route exact path='/todos' render= {() => (
-                    <Todos todos={this.state.todos} addTodo={this.handleAdd.bind(this)} onDelete={this.handleDelete.bind(this)} />
+                    <Todos todos={this.state.todos} addTodo={this.handleAdd.bind(this)} />
                   )}/>
                   <Route exact path='/contacts' render= {() => (
-                    <Contacts contacts={this.state.contacts} addContact={this.handleAdd.bind(this)} onDelete={this.handleDelete.bind(this)} />
+                    <Contacts contacts={this.state.contacts}
+                              addContact={this.handleAdd.bind(this)}
+                              onDelete={this.handleDelete.bind(this)} />
                   )}/>
                   <Route exact path='/notes' render= {() => (
-                    <Notes notes={this.state.notes} addNote={this.handleAdd.bind(this)} onDelete={this.handleDelete.bind(this)}/>
+                    <Notes notes={this.state.notes}
+                           addNote={this.handleAdd.bind(this)}
+                           onDelete={this.handleDelete.bind(this)}/>
                   )}/>
                 </Switch>
               </div>

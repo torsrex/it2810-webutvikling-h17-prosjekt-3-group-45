@@ -95,20 +95,32 @@ export class Calendar extends React.Component{
     this.setState({currentEvent: clickedEvent});
   }
 
+  getEvents(){
+    let events = this.props.events;
+    let rendredEvents = [];
+
+    for(let i=0;i < events.length; i++){
+        let current = {
+          'id'   : events[i].id,
+          'title': events[i].title,
+          'start': new Date(events[i].start),
+          'end'  : new Date(events[i].end)
+        };
+        rendredEvents.push(current);
+    }
+    return rendredEvents;
+  }
+
   render(){
     let wrapperClass = 'wrappermedium';
-    console.log(this.props.eventList);
     return (
-      <div {...this.props}>
+      <div>
         <h3 className="callout">
           Click an event to see more info, or
           drag the mouse over the calendar to select a date/time range.
         </h3>
         <Modal trigger={<Button positive onClick={this.openAdd}>Add Event</Button>}
-               header="Plan new Event"
                open = {this.state.addModalShow}
-               closeOnEscape = {this.closeAdd}
-               closeOnDimmerClick = {this.closeAdd}
                >
 
           <Modal.Content>
@@ -152,8 +164,8 @@ export class Calendar extends React.Component{
                   />
                 </div>
               </Form.Field>
-              <Button negative onClick={this.closeAdd}>Cancel</Button>
-              <Button positive onClick={() => this.addEventFromButton(
+              <Button type="button" negative onClick={this.closeAdd}>Cancel</Button>
+              <Button type="button" positive  onClick={() => this.addEventFromButton(
                 this.state.bigInputMomentStart,
                 this.state.bigInputMomentEnd
               )}
