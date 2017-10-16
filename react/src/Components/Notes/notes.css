@@ -1,0 +1,67 @@
+*{
+    margin:0;
+    padding:0;
+}
+body{
+    font-family:arial,sans-serif;
+    font-size:100%;
+    margin:1em;
+    background:#666;
+    color:#fff;
+}
+h2,p{
+    font-size:100%;
+    font-weight:normal;
+    white-space: normal;
+}
+
+.btn{
+    float: right;
+}
+
+ul,li{
+    list-style:none;
+    overflow:hidden;
+    display: inline-block;
+}
+ul{
+    overflow:hidden;
+    padding:1em;
+}
+
+ul li{
+    text-decoration:none;
+    color:#000;
+    background:#ffc;
+    display:inline;
+    height:15em;
+    width:15em;
+    padding:1em;
+    margin:2em;
+    float:left;
+    word-break: break-all;
+    -moz-box-shadow:5px 5px 7px rgba(33,33,33,1);
+    -webkit-box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+    box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+}
+
+ul li h2{
+    font-size:140%;
+    font-weight:bold;
+    padding-bottom:5px;
+}
+ul li p{
+    font-family:"Reenie Beanie",arial,sans-serif;
+    font-size:100%;
+}
+
+ul li:hover{
+    box-shadow:10px 10px 7px rgba(0,0,0,.7);
+    -moz-box-shadow:10px 10px 7px rgba(0,0,0,.7);
+    -webkit-box-shadow: 10px 10px 7px rgba(0,0,0,.7);
+    -webkit-transform: scale(1.25) rotate(-6deg);
+    -moz-transform: scale(1.25) rotate(-6deg);
+    -o-transform: scale(1.25) rotate(-6deg);
+    position:relative;
+    z-index:5;
+}
