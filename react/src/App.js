@@ -3,10 +3,10 @@ import { Grid, Segment, Header, Icon } from 'semantic-ui-react';
 import { Switch, Route } from 'react-router-dom'
 import uuid from 'uuid';
 import './App.css';
-import Contacts from './Contacts';
-import { Calendar } from './BigCalendar'
-import Todos from './Components/Todos.jsx';
-import Notes from './Components/Notes.jsx';
+import Contacts from './Components/Contacts/Contacts';
+import { Calendar } from './Components/Calendar/BigCalendar'
+import Todos from './Components/Todos/Todos.jsx';
+import Notes from './Components/Notes/Notes.jsx';
 import SetName from './Components/SetName';
 import Navbar from "./Components/Navbar";
 
@@ -34,11 +34,14 @@ class App extends Component {
         {id: uuid.v4(), title: 'Hans Vette', description: 'Slap him in the 4Head'}
         ],
         notes: [
+          {id: uuid.v4(), title: 'This is a note', description: 'Take notes, kids'},
+          {id: uuid.v4(), title: 'Shag me sideways', description: 'Granny bought me an apple'},
+          {id: uuid.v4(), title: 'Flexbox', description: 'More like checkbox amirite? hehe_xd'}
         ],
         contacts: [
-          {name: "Ugle McUglesen", email: "Ugle@gmail.com", phone: "12345678"},
-          {name: "Tødden Tøddvik", email: "tødden@gmail.com", phone: "22334455"},
-          {name: "Han Svette", email: "håvard@gmail.com", phone: "12121212"}
+          {id: uuid.v4(), name: "Ugle McUglesen", email: "Ugle@gmail.com", phone: "12345678"},
+          {id: uuid.v4(), name: "Tødden Tøddvik", email: "tødden@gmail.com", phone: "22334455"},
+          {id: uuid.v4(), name: "Han Svette", email: "håvard@gmail.com", phone: "12121212"}
         ]
       });
     }
@@ -74,6 +77,9 @@ class App extends Component {
     } else if (key === "notes") {
       oldVals = this.state.notes;
       index  = oldVals.findIndex(x => x.id === id);
+    } else if (key === "contacts") {
+      oldVals = this.state.contacts;
+      index  = oldVals.findIndex(x => x.id === id);
     } else {
       console.log(key + " is not a value in this.state");
     }
@@ -81,7 +87,7 @@ class App extends Component {
     this.setState({key}: oldVals);
     localStorage.setItem('squad', JSON.stringify(this.state));
   }
-  
+
   handleSetName(name){
     this.setState({name:name});
     let state = this.state;
@@ -123,7 +129,7 @@ class App extends Component {
                     <Todos todos={this.state.todos} addTodo={this.handleAdd.bind(this)} onDelete={this.handleDelete.bind(this)} />
                   )}/>
                   <Route exact path='/contacts' render= {() => (
-                    <Contacts contacts={this.state.contacts} addContact={this.handleAdd.bind(this)} />
+                    <Contacts contacts={this.state.contacts} addContact={this.handleAdd.bind(this)} onDelete={this.handleDelete.bind(this)} />
                   )}/>
                   <Route exact path='/notes' render= {() => (
                     <Notes notes={this.state.notes} addNote={this.handleAdd.bind(this)} onDelete={this.handleDelete.bind(this)}/>
