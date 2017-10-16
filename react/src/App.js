@@ -115,16 +115,13 @@ class App extends Component {
   }
 
   handleRemoveEvent(event){
-    console.log(event);
     let updatedEvent = this.state.eventList;
     for(let i = 0; i < updatedEvent.length; i++){
-      console.log(updatedEvent[i].id, event['id']);
       if(updatedEvent[i].id === event.id){
         updatedEvent.splice(i, 1);
       }
     }
     this.setState({ eventList : updatedEvent });
-    console.log(this.state.eventList, updatedEvent);
     localStorage.setItem('squad', JSON.stringify(this.state));
   }
 
