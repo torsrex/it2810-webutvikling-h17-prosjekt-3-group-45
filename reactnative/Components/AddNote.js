@@ -13,7 +13,6 @@ class AddNote extends Component{
     }
   }
 
-
   handleSubmit(e){
     if(this.state.title === ''){
       alert("Title required");
@@ -24,6 +23,9 @@ class AddNote extends Component{
         description: this.state.description
       }}, function(){
         this.props.addNote(this.state.newNote);
+        this.setState({title : '', description: ''})
+        this.textInputRef1.clear();
+        this.textInputRef2.clear();
       });
   }
   }
@@ -36,14 +38,23 @@ class AddNote extends Component{
     <TextInput
       label = "Title"
       placeholder = "Enter title to note!"
+      autoCapitalize = 'sentences'
       onChangeText={(text) => this.setState({title:text})}
+      ref={ref => this.textInputRef1 = ref}
+      value={this.state.title}
     />
 
     <TextInput
-      multiline={true}
       label = "Description"
       placeholder = "Enter a description to note!"
+      autoCapitalize = 'sentences'
       onChangeText={(text) => this.setState({description:text})}
+      onSubmitEditing={(event) => {
+        this.handleSubmit();
+        keyboardType = 'none'
+      }}
+      ref={ref => this.textInputRef2 = ref}
+      value={this.state.description}
     />
 
       <Button
@@ -57,11 +68,11 @@ class AddNote extends Component{
 
 const styles = StyleSheet.create({
   TextInput : {
-    flex : 1,
     justifyContent: 'center',
     alignSelf: 'center',
-    width : 350,
-    paddingTop : 10,
+    width : 300,
+    paddingTop : 50,
+    paddingBottom: 30,
   },
 });
 export default AddNote;

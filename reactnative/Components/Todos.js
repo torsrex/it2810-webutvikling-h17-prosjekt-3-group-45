@@ -1,29 +1,53 @@
 import React, { Component } from 'react';
 import TodoItem from './TodoItem';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, ScrollView } from 'react-native';
+import AddTodo from './AddTodo';
+import uuid from 'uuid';
+
 
 class Todos extends React.Component{
 
-  deleteTodo(id){
-    this.props.onDelete(id);
+
+  constructor(props){
+    super(props);
+    this.state={
+      todos: [
+      {id: uuid.v4(), title: 'Make todolist', description: 'Tødden Tøddvik has to make the todolist'},
+      {id: uuid.v4(), title: 'Handle contacts', description: 'Ugle McUglesen \'boutta hook us up with contact info'},
+      {id: uuid.v4(), title: 'Hans Vette', description: 'Slap him in the 4Head'}
+      ]
+    }
+  }
+
+  handleAddTodo(todo){
+    let todos = this.state.todos;
+    todos.push(todo);
+    this.setState({todos: todos});
+  }
+
+  handleDeleteTodo(id){
+    let todos = this.state.todos;
+    let index = todos.findIndex(x => x.id === id);
+    todos.splice(index, 1);
+    this.setState({todos: todos});
   }
 
   render(){
 
     let todoItems;
-    if(this.props.todos){
-      todoItems = this.props.todos.map(todo => {
+    if(this.state.todos){
+      todoItems = this.state.todos.map(todo => {
         return(
-          <TodoItem onDelete={this.deleteTodo.bind(this)} key={todo.id} todo={todo}/>
+          <TodoItem onDelete={this.handleDeleteTodo.bind(this)} key={todo.id} todo={todo}/>
         )
       });
     }
 
     return (
-      <View>
-        <Text>My Todos</Text>
+      <ScrollView style={styles.TextInput}>
+        <AddTodo addTodo={this.handleAddTodo.bind(this)}/>
         {todoItems}
-      </View>
+      </ScrollView>
     );
   }
 }
@@ -31,8 +55,9 @@ class Todos extends React.Component{
 const styles = StyleSheet.create({
   TextInput : {
     flex : 1,
-    justifyContent: 'center',
-    alignSelf : 'center',
+    alignSelf : 'flex-start',
+    paddingLeft: 20,
+    paddingRight : 20,
   },
 });
 
