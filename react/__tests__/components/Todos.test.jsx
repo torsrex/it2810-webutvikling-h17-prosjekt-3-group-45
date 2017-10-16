@@ -10,7 +10,8 @@ describe('Todos', () => {
   it('renders without crashing', () => {
     const div = document.createElement('div');
     ReactDOM.render(<Todos todos={[
-  {id: uuid.v4(), title: 'Test todolist', description: 'Check if todolist crashes'}
-  ]}/>, div);
+      {id: uuid.v4(), title: 'Test todolist', description: 'Check if todolist crashes'}
+    ]}/>, div);
   });
 });
+
