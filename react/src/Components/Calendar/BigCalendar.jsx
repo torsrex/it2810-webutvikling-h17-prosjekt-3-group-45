@@ -1,6 +1,7 @@
 import React  from 'react';
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
+import uuid from 'uuid';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { Modal, Button, Form } from 'semantic-ui-react';
 import { BigInputMoment } from 'react-input-moment';
@@ -11,14 +12,15 @@ BigCalendar.setLocalizer(
 );
 
 export class Calendar extends React.Component{
-
-  constructor(props){
-    super(props);
+  constructor(){
+    super();
     this.state={
-      eventList : [],
       editModalShow : false,
       addModalShow : false,
-      currentEvent : {'title':'placeholer',
+      afterPopupModal : false,
+      currentEvent : {
+        'id' : 123,
+        'title':'placeholer',
         'start': new Date(),
         'end': new Date()},
       bigInputMomentStart : moment(),
@@ -43,75 +45,91 @@ export class Calendar extends React.Component{
       alert("Event must have a title");
       return
     }
-    let startTime = start.format().substring(11,19).split(':');
-    let endTime = end.format().substring(11,19).split(':');
-
-    let startDate = start.format().substring(0,10).split('-');
-    let endDate = end.format().substring(0,10).split('-');
-
-    let newEvent = this.state.eventList;
-    newEvent.push({
+    let newEvent = {
+      'id'   : uuid.v4(),
       'title': this.state.currentEventTitle,
-      'start': new Date(Number(startDate[0]), Number(startDate[1]) - 1, Number(startDate[2]),
-        Number(startTime[0]), Number(startTime[1]), Number(startTime[2])),
+      'start': start.toDate(),
+      'end'  : end.toDate()
+    };
 
-      'end': new Date(Number(endDate[0]), Number(endDate[1]) - 1, Number(endDate[2]),
-        Number(endTime[0]), Number(endTime[1]), Number(endTime[2]))
-    });
-    this.setState({ eventList : newEvent, addModalShow : false });
+    this.setState({ currentEvent : newEvent, addModalShow : false },
+                  function () {
+                    this.props.addEvent(this.state.currentEvent);
+                  });
     this.closeAdd();
   }
 
-  addEvent(info) {
-    let startTime = info.start.toTimeString().substring(0, 8).split(':');
-    let startDate = info.start.toLocaleDateString().split('/');
-    let endTime = info.end.toTimeString().substring(0, 8).split(':');
-    let endDate = info.end.toLocaleDateString().split('/');
+  preAddEvent(event){
+    this.setState({ currentEvent:event, afterPopupModal:true });
+  }
 
-    let newEvent = this.state.eventList;
-    newEvent.push({'title': 'new event!',
+  addEvent(event) {
+    let title = this.state.currentEventTitle;
+    let startTime = event.start.toTimeString().substring(0, 8).split(':');
+    let startDate = event.start.toLocaleDateString().split('/');
+    let endTime   = event.end.toTimeString().substring(0, 8).split(':');
+    let endDate   = event.end.toLocaleDateString().split('/');
+
+    let newEvent = {
+      'id'   : uuid.v4(),
+      'title': title,
       'start': new Date(Number(startDate[2]), Number(startDate[0])-1, Number(startDate[1]),
         Number(startTime[0]), Number(startTime[1])),
 
       'end':   new Date(Number(endDate[2]), Number(endDate[0])-1, Number(endDate[1]),
         Number(endTime[0]), Number(endTime[1])),
-    });
-    this.setState({eventList:newEvent});
+    };
+    this.setState({ currentEvent : newEvent, addModalShow : false },
+      function () {
+        this.props.addEvent(this.state.currentEvent);
+      });
+
+    this.closeDrag();
   }
 
-  close = () => this.setState({ editModalShow: false });
-  openAdd = () => this.setState({addModalShow : true});
-  closeAdd = () => this.setState({addModalShow : false});
+  close     = () => this.setState({ editModalShow   : false });
+  openAdd   = () => this.setState({ addModalShow    : true });
+  closeAdd  = () => this.setState({ addModalShow    : false });
+  closeDrag = () => this.setState({ afterPopupModal : false });
+
   removeEvent(event){
-    let updatedEvent = this.state.eventList;
-    for(let i = 0; i < updatedEvent.length; i++){
-      if(updatedEvent[i] === event){
-        updatedEvent.splice(i, 1);
-      }
-    }
+    this.setState(function () {
+      this.props.rmEvent(event);
+    });
     this.close();
   }
   editEvent(clickedEvent) {
-    this.setState({currentEvent : null});
     this.setState({editModalShow: true});
     this.setState({currentEvent: clickedEvent});
+  }
+
+  getEvents(){
+    let events = this.props.events;
+    let rendredEvents = [];
+
+    for(let i=0;i < events.length; i++){
+        let current = {
+          'id'   : events[i].id,
+          'title': events[i].title,
+          'start': new Date(events[i].start),
+          'end'  : new Date(events[i].end)
+        };
+        rendredEvents.push(current);
+    }
+    return rendredEvents;
   }
 
   render(){
     let wrapperClass = 'wrappermedium';
     return (
-      <div {...this.props}>
+      <div>
         <h3 className="callout">
           Click an event to see more info, or
           drag the mouse over the calendar to select a date/time range.
         </h3>
         <Modal trigger={<Button positive onClick={this.openAdd}>Add Event</Button>}
-               header="Plan new Event"
                open = {this.state.addModalShow}
-               closeOnEscape = {this.closeAdd}
-               closeOnDimmerClick = {this.closeAdd}
                >
-
           <Modal.Content>
             <Form>
               <Form.Field>
@@ -153,8 +171,8 @@ export class Calendar extends React.Component{
                   />
                 </div>
               </Form.Field>
-              <Button negative onClick={this.closeAdd}>Cancel</Button>
-              <Button positive onClick={() => this.addEventFromButton(
+              <Button type="button" negative onClick={this.closeAdd}>Cancel</Button>
+              <Button type="button" positive  onClick={() => this.addEventFromButton(
                 this.state.bigInputMomentStart,
                 this.state.bigInputMomentEnd
               )}
@@ -164,11 +182,11 @@ export class Calendar extends React.Component{
         </Modal>
         <BigCalendar
           selectable
-          events={this.state.eventList}
+          events={this.getEvents()}
           defaultView='week'
           defaultDate={new Date()}
           onSelectEvent={(event) => this.editEvent(event)}
-          onSelectSlot={(info) => this.addEvent(info)}
+          onSelectSlot={(event) => this.preAddEvent(event)}
         />
         <Modal open={this.state.editModalShow}>
           <Modal.Content>
@@ -180,8 +198,45 @@ export class Calendar extends React.Component{
               <p>End: {this.state.currentEvent.end.toLocaleDateString()}&nbsp;{this.state.currentEvent.end.toLocaleTimeString()}</p>
               <br/>
             </Modal.Content>
-            <Button color='yellow' onClick={this.close}>Close</Button>
-            <Button negative onClick={(evt) => this.removeEvent(this.state.currentEvent)}>Remove Event</Button>
+            <Button type="button" color='yellow' onClick={this.close}>Close</Button>
+            <Button type="button" negative onClick={(evt) => this.removeEvent(this.state.currentEvent)}>Remove Event</Button>
+          </Modal.Content>
+        </Modal>
+
+        {/* Popup after drag-event  */}
+        <Modal open={this.state.afterPopupModal}>
+          <Modal.Content>
+            <Form>
+              <Form.Field>
+                <label>Name of event</label>
+                <input
+                  className="output"
+                  type="text"
+                  placeholder="e.g Lecture TMA4135"
+                  value={this.state.currentEventTitle}
+                  onChange={evt => this.updateEventTitle(evt)}
+                />
+              </Form.Field>
+              <Form.Field>
+                <label>Start</label>
+                <input className="output"
+                       type="text"
+                       value={this.state.currentEvent.start}
+                       readOnly
+                />
+              </Form.Field>
+              <Form.Field>
+                <label>Start</label>
+                <input className="output"
+                       type="text"
+                       value={this.state.currentEvent.start}
+                       readOnly
+                />
+              </Form.Field>
+            </Form>
+            <br/>
+            <Button type="button" color="yellow" onClick={this.closeDrag}>Cancel</Button>
+            <Button type="button" positive onClick={(evt) => this.addEvent(this.state.currentEvent)}> Add Event </Button>
           </Modal.Content>
         </Modal>
       </div>

@@ -17,7 +17,8 @@ class App extends Component {
       name: "",
       todos: [],
       notes: [],
-      contacts: []
+      contacts: [],
+      eventList:[]
     }
   }
 
@@ -42,7 +43,18 @@ class App extends Component {
           {id: uuid.v4(), name: "Ugle McUglesen", email: "Ugle@gmail.com", phone: "12345678"},
           {id: uuid.v4(), name: "Tødden Tøddvik", email: "tødden@gmail.com", phone: "22334455"},
           {id: uuid.v4(), name: "Han Svette", email: "håvard@gmail.com", phone: "12121212"}
-        ]
+        ],
+        eventList:[{
+          'id'    :  uuid.v4(),
+          'title' : 'Evaluate other students project',
+          'start' : '2017-10-16 15:00:00',
+          'end'   : '2017-10-16 17:00:00'
+        },{
+          'id'    :  uuid.v4(),
+          'title' : 'Give group 45 full score',
+          'start' : '2017-10-16 18:00:00',
+          'end'   : '2017-10-16 20:00:00'
+        }]
       });
     }
   }
@@ -64,13 +76,13 @@ class App extends Component {
       console.log(key + " is not a value in this.state");
     }
     oldVals.push(value);
-    this.setState({key}: oldVals);
+    this.setState({key} : oldVals);
     localStorage.setItem('squad', JSON.stringify(this.state));
   }
 
   handleDelete(key, id){
-    let oldVals
-    let index
+    let oldVals;
+    let index;
     if (key === "todos") {
       oldVals = this.state.todos;
       index = oldVals.findIndex(x => x.id === id);
@@ -93,6 +105,24 @@ class App extends Component {
     let state = this.state;
     state.name = name;
     localStorage.setItem('squad', JSON.stringify(state));
+  }
+
+  handleAddEvent(event){
+    let events = this.state.eventList;
+    events.push(event);
+    this.setState({eventList:events});
+    localStorage.setItem('squad', JSON.stringify(this.state));
+  }
+
+  handleRemoveEvent(event){
+    let updatedEvent = this.state.eventList;
+    for(let i = 0; i < updatedEvent.length; i++){
+      if(updatedEvent[i].id === event.id){
+        updatedEvent.splice(i, 1);
+      }
+    }
+    this.setState({ eventList : updatedEvent });
+    localStorage.setItem('squad', JSON.stringify(this.state));
   }
 
   render() {
@@ -123,16 +153,22 @@ class App extends Component {
                 {/* VARIABLE CONTENT IS DISPLAYED HERE */}
                 <Switch>
                   <Route exact path='/' render= {() => (
-                    <Calendar />
+                    <Calendar events={this.state.eventList}
+                              addEvent={this.handleAddEvent.bind(this)}
+                              rmEvent={this.handleRemoveEvent.bind(this)}/>
                   )}/>
                   <Route exact path='/todos' render= {() => (
-                    <Todos todos={this.state.todos} addTodo={this.handleAdd.bind(this)} onDelete={this.handleDelete.bind(this)} />
+                    <Todos todos={this.state.todos} addTodo={this.handleAdd.bind(this)} />
                   )}/>
                   <Route exact path='/contacts' render= {() => (
-                    <Contacts contacts={this.state.contacts} addContact={this.handleAdd.bind(this)} onDelete={this.handleDelete.bind(this)} />
+                    <Contacts contacts={this.state.contacts}
+                              addContact={this.handleAdd.bind(this)}
+                              onDelete={this.handleDelete.bind(this)} />
                   )}/>
                   <Route exact path='/notes' render= {() => (
-                    <Notes notes={this.state.notes} addNote={this.handleAdd.bind(this)} onDelete={this.handleDelete.bind(this)}/>
+                    <Notes notes={this.state.notes}
+                           addNote={this.handleAdd.bind(this)}
+                           onDelete={this.handleDelete.bind(this)}/>
                   )}/>
                 </Switch>
               </div>
