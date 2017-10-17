@@ -9,6 +9,8 @@ import Todos from './Components/Todos/Todos.jsx';
 import Notes from './Components/Notes/Notes.jsx';
 import SetName from './Components/SetName';
 import Navbar from "./Components/Navbar";
+import Notification from './Components/Notification/Notification.jsx'
+import moment from 'moment'
 
 class App extends Component {
   constructor(props){
@@ -17,7 +19,12 @@ class App extends Component {
       name: "",
       todos: [],
       notes: [],
-      contacts: []
+      contacts: [],
+      testEventList: [{ //TOOD: Remove when LocStoreCal2 is merged
+        'title' : 'TestEvent!',
+        'start' : moment().format(),
+        'end'   : moment().add(2, 'hour').format()
+      }]
     }
   }
 
@@ -95,6 +102,24 @@ class App extends Component {
     localStorage.setItem('squad', JSON.stringify(state));
   }
 
+  getUpcommingEvents(){
+
+    //TODO: Change to eventList when locStorCal2 is merged
+    let eventList = this.state.testEventList;
+    let fromDate = moment().subtract(10,'minute');
+    let toDate = moment().add(10, 'minute');
+    let upcommingEvents = [];
+    let i;
+    let len = eventList.length;
+    for(i = 0; i < len; i++){
+      let startDate = moment(eventList[i].start);
+      if(startDate.isBetween(fromDate, toDate)){
+        upcommingEvents.push(eventList[i]); //Need entire object
+      }
+    }
+    return upcommingEvents;
+  }
+
   render() {
     if(this.state.name === ""){
       return(
@@ -103,19 +128,18 @@ class App extends Component {
     }
     return (
       <div className="App">
-
-          <div>
-            <Header as='h2' icon textAlign='center'>
-              <Icon name='calendar' circular />
-              <Header.Content>
-                Hello { this.state.name }
-              </Header.Content>
-            </Header>
-          </div>
-          <Grid>
-
+        <div>
+          <Header as='h2' icon textAlign='center'>
+            <Icon name='calendar' circular />
+            <Header.Content>
+              Hello { this.state.name }
+            </Header.Content>
+          </Header>
+        </div>
+        {/* Notification component goes here */}
+        <Notification events={this.getUpcommingEvents()}/>
+        <Grid>
           <Navbar s={this.state}/>
-
           <Grid.Column stretched width={12}>
             <Segment>
 
