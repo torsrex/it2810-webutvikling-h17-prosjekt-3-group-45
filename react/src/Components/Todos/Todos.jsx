@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TodoItem from './TodoItem';
 import AddTodo from './AddTodo';
+import { List } from 'semantic-ui-react';
 
 
 class Todos extends Component{
@@ -21,10 +22,12 @@ class Todos extends Component{
     }
 
     return (
-      <div className="Todo">
+      <div className="Todos">
+        <List className="TodoList">
         <h3>My Todos</h3>
         {todoItems}<br />
         <AddTodo addTodo={this.props.addTodo} />
+        </List>
       </div>
     );
   }

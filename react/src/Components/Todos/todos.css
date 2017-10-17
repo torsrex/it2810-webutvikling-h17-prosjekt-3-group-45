@@ -1,0 +1,23 @@
+.TodoList {
+    margin: 0;
+    padding: 0;
+}
+
+.TodoList .Todo {
+    position: relative;
+    padding: 12px 8px 12px 40px;
+    background: #eee;
+    font-size: 18px;
+    transition: 0.2s;
+}
+
+.TodoList .Todo:hover{
+    -webkit-transform: scale(1.15);
+    -moz-transform: scale(1.15);
+    -o-transform: scale(1.15);
+    overflow: hidden;
+}
+
+.TodoList .Todo:nth-child(odd) {
+    background: #f9f9f9;
+}
