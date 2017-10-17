@@ -11,8 +11,8 @@ class NoteItem extends Component{
   render(){
     return (
 
-      <ul>
-        <li>
+      <ul className="NoteList">
+        <li className="Note">
             <h2>
               <Button className="btn" size="mini" color="red" title="Delete" circular icon="trash outline" onClick={this.deleteNote.bind(this, this.props.note.id)} />
               {this.props.note.title}

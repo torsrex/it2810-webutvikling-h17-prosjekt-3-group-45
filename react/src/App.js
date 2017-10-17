@@ -108,21 +108,22 @@ class App extends Component {
     state.name = name;
     localStorage.setItem('squad', JSON.stringify(state));
   }
-  getUpcommingEvents() {
+  getUpcomingEvents() {
     let eventList = this.state.eventList;
     let fromDate = moment().subtract(10, 'minute');
     let toDate = moment().add(10, 'minute');
-    let upcommingEvents = [];
+    let upcomingEvents = [];
     let i;
     let len = eventList.length;
     for (i = 0; i < len; i++) {
       let startDate = moment(eventList[i].start);
       if (startDate.isBetween(fromDate, toDate)) {
-        upcommingEvents.push(eventList[i]); //Need entire object
+        upcomingEvents.push(eventList[i]); //Need entire object
       }
     }
-    return upcommingEvents;
+    return upcomingEvents;
   }
+
   handleAddEvent(event){
     let events = this.state.eventList;
     events.push(event);
@@ -158,7 +159,7 @@ class App extends Component {
           </Header>
         </div>
         {/* Notification component goes here */}
-        <Notification events={this.getUpcommingEvents()}/>
+        <Notification events={this.getUpcomingEvents()}/>
         <Grid>
           <Navbar s={this.state}/>
           <Grid.Column stretched width={12}>
@@ -173,7 +174,7 @@ class App extends Component {
                               rmEvent={this.handleRemoveEvent.bind(this)}/>
                   )}/>
                   <Route exact path='/todos' render= {() => (
-                    <Todos todos={this.state.todos} addTodo={this.handleAdd.bind(this)} />
+                    <Todos todos={this.state.todos} addTodo={this.handleAdd.bind(this)} onDelete={this.handleDelete.bind(this)}/>
                   )}/>
                   <Route exact path='/contacts' render= {() => (
                     <Contacts contacts={this.state.contacts}
