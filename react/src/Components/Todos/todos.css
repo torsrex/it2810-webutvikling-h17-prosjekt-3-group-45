@@ -11,13 +11,6 @@
     transition: 0.2s;
 }
 
-.TodoList .Todo:hover{
-    -webkit-transform: scale(1.15);
-    -moz-transform: scale(1.15);
-    -o-transform: scale(1.15);
-    overflow: hidden;
-}
-
 .TodoList .Todo:nth-child(odd) {
     background: #f9f9f9;
 }
