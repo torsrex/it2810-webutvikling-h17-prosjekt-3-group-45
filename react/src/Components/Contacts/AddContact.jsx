@@ -2,7 +2,7 @@ import React from 'react';
 import uuid from 'uuid';
 import { Button, Form } from 'semantic-ui-react'
 
-export class AddContact extends React.Component{
+export default class AddContact extends React.Component{
   constructor(){
     super();
     this.state= {
@@ -10,8 +10,15 @@ export class AddContact extends React.Component{
     }
   }
 
+  invalidName(name){
+    if(name === '' || name.length > 32){
+      return true;
+    }
+    return false;
+  }
+
   handleSubmit(e) {
-    if (this.refs.name.value === '') {
+    if (this.invalidName(this.refs.name.value)) {
       alert("Contact name required");
     }
     else if(this.refs.email.value === '' && this.refs.phone.value === ''){

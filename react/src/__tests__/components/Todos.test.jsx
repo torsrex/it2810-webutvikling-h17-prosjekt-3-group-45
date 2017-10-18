@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Todos from '../../src/Components/Todos/Todos';
-import TodoItem from '../../src/Components/Todos/TodoItem';
-import AddTodo from '../../src/Components/Todos/AddTodo';
+import Todos from '../../Components/Todos/Todos';
+import TodoItem from '../../Components/Todos/TodoItem';
+import AddTodo from '../../Components/Todos/AddTodo';
 import uuid from 'uuid';
 
 
@@ -13,5 +13,9 @@ describe('Todos', () => {
       {id: uuid.v4(), title: 'Test todolist', description: 'Check if todolist crashes'}
     ]}/>, div);
   });
-});
 
+  it('renders AddTodo component', () => {
+    const div = document.createElement('div');
+    ReactDOM.render(<AddTodo addTodo={() => {}}/>, div);
+  });
+});
