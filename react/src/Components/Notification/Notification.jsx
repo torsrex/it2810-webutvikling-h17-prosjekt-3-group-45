@@ -1,5 +1,6 @@
 import React from 'react'
 import NotificationItem from "./NotificationItem";
+import { Message } from 'semantic-ui-react'
 
 export class Notification extends React.Component {
 
@@ -12,11 +13,24 @@ export class Notification extends React.Component {
         )
       })
     }
-    return(
-      <div>
-        {notificationItems}
-      </div>
-    )
+    if(this.props.events.length > 0){
+      return(
+        <div>
+          <Message size="huge" color="teal">
+            <Message.List>
+              {notificationItems}
+            </Message.List>
+          </Message>
+        </div>
+      )
+    }else{
+      return(
+        <div>
+
+        </div>
+      )
+    }
+
   }
 }
 
