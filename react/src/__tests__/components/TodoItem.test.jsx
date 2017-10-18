@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Todos from '../../src/Components/Todos/Todos';
-import TodoItem from '../../src/Components/Todos/TodoItem';
-import AddTodo from '../../src/Components/Todos/AddTodo';
+import Todos from '../../Components/Todos/Todos';
+import TodoItem from '../../Components/Todos/TodoItem';
+import AddTodo from '../../Components/Todos/AddTodo';
 
 describe('TodoItem', () => {
   it('renders AddTodo correctly', () => {

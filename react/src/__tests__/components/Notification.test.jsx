@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Notification from '../../src/Components/notification/Notification';
-import NotificationItem from '../../src/Components/notification/NotificationItem';
-import NoteItem from '../../src/Components/Notes/NoteItem';
+import Notification from '../../Components/notification/Notification';
+import NotificationItem from '../../Components/notification/NotificationItem';
+import NoteItem from '../../Components/Notes/NoteItem';
 import uuid from 'uuid';
 import { Message } from 'semantic-ui-react'
 

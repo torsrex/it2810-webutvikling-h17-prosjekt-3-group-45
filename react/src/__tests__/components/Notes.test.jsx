@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Notes from '../../src/Components/Notes/Notes';
-import NoteItem from '../../src/Components/Notes/NoteItem';
-import AddNote from '../../src/Components/Notes/AddNote';
+import Notes from '../../Components/Notes/Notes';
+import NoteItem from '../../Components/Notes/NoteItem';
+import AddNote from '../../Components/Notes/AddNote';
 import uuid from 'uuid';
+import {shallow} from 'enzyme'
 
 
 describe('Notes', () => {
@@ -14,4 +15,3 @@ describe('Notes', () => {
     ]}/>, div);
   });
 });
-
