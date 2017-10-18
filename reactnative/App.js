@@ -1,28 +1,48 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { Platform, StatusBar, StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation';
+import { Icon } from 'react-native-elements';
 import Header from './Components/Header';
 import Name from './Components/Name';
 import Todos from './Components/Todos';
 import Notes from './Components/Notes';
 import Welcome from './Components/Welcome';
 import Contacts from './Components/Contacts';
+import AgendaScreen from './Components/Agenda'
 
 const MainScreenNavigator = TabNavigator({
-  Todo: {screen: Todos},
+  Todo: {
+    screen: Todos,
+    navigationOptions:{
+      tabBarLabel: 'Todo',
+    }
+  },
   Notes: {screen: Notes},
   Contacts: {screen : Contacts},
-  //Calendar: { screen: Calendar },
-});
+  Agenda: { screen: AgendaScreen }},
+  {
+    tabBarOptions : {
+      style: {
+        backgroundColor: 'red',
+      }
+    }
+  });
 
 const PersonalManager = StackNavigator({
     Home: {
       screen: MainScreenNavigator,
       navigationOptions: {
-        title: 'Personal manager',
+        title: 'Personal shit mangager!',
       },
     },
-  });
+  },
+  {
+    cardStyle: {
+      paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight,
+      backgroundColor: '#F5F5F5',
+    }
+  }
+);
 
 export default class App extends React.Component {
   constructor(props){
@@ -47,7 +67,7 @@ export default class App extends React.Component {
       );
     }
       return (
-        <PersonalManager />
+          <PersonalManager name={this.state.name} style = {{backgroundColor: 'green'}} ref={nav => {this.navigator = nav;}}/>
       );
   }
 }
