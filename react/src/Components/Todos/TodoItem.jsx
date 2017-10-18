@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, List } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import "./todos.css";
 
 class TodoItem extends Component{
@@ -10,10 +10,10 @@ class TodoItem extends Component{
 
   render(){
     return (
-        <List.Item className="Todo">
+        <div className="Todo">
           <b>{this.props.todo.title}</b>: {this.props.todo.description}&nbsp;&nbsp;
           <Button size="mini" color="red" title="Delete" circular icon="trash outline" onClick={this.deleteTodo.bind(this, this.props.todo.id)} />
-        </List.Item>
+        </div>
     );
   }
 }
