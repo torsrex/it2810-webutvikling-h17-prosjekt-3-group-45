@@ -53,9 +53,10 @@ export class Calendar extends React.Component{
     };
 
     this.setState({ currentEvent : newEvent, addModalShow : false },
-                  function () {
-                    this.props.addEvent(this.state.currentEvent);
-                  });
+                    function () {
+                      this.props.addEvent(this.state.currentEvent);
+                    }
+                 );
     this.closeAdd();
   }
 
@@ -64,29 +65,32 @@ export class Calendar extends React.Component{
   }
 
   addEvent(event) {
-    let title = this.state.currentEventTitle;
+    let title     = this.state.currentEventTitle;
     let startTime = event.start.toTimeString().substring(0, 8).split(':');
     let startDate = event.start.toLocaleDateString().split('/');
     let endTime   = event.end.toTimeString().substring(0, 8).split(':');
     let endDate   = event.end.toLocaleDateString().split('/');
 
-    let newEvent = {
+    let newEvent  = {
       'id'   : uuid.v4(),
       'title': title,
       'start': new Date(Number(startDate[2]), Number(startDate[0])-1, Number(startDate[1]),
-        Number(startTime[0]), Number(startTime[1])),
+                        Number(startTime[0]), Number(startTime[1])),
 
-      'end':   new Date(Number(endDate[2]), Number(endDate[0])-1, Number(endDate[1]),
-        Number(endTime[0]), Number(endTime[1])),
+      'end'  : new Date(Number(endDate[2]), Number(endDate[0])-1, Number(endDate[1]),
+                        Number(endTime[0]), Number(endTime[1])),
     };
+
     this.setState({ currentEvent : newEvent, addModalShow : false },
-      function () {
-        this.props.addEvent(this.state.currentEvent);
-      });
+                    function () {
+                      this.props.addEvent(this.state.currentEvent);
+                    }
+                  );
 
     this.closeDrag();
   }
 
+  //Opens and closes different modals
   close     = () => this.setState({ editModalShow   : false });
   openAdd   = () => this.setState({ addModalShow    : true });
   closeAdd  = () => this.setState({ addModalShow    : false });
@@ -98,6 +102,7 @@ export class Calendar extends React.Component{
     });
     this.close();
   }
+
   editEvent(clickedEvent) {
     this.setState({editModalShow: true});
     this.setState({currentEvent: clickedEvent});
@@ -127,6 +132,7 @@ export class Calendar extends React.Component{
           Click an event to see more info, or
           drag the mouse over the calendar to select a date/time range.
         </h3>
+        {/* Add event from button modal */}
         <Modal trigger={<Button positive onClick={this.openAdd}>Add Event</Button>}
                open = {this.state.addModalShow}
                >
@@ -188,18 +194,24 @@ export class Calendar extends React.Component{
           onSelectEvent={(event) => this.editEvent(event)}
           onSelectSlot={(event) => this.preAddEvent(event)}
         />
+
+        {/* Modal when selecting an event in calendar */}
         <Modal open={this.state.editModalShow}>
           <Modal.Content>
             <Modal.Description>
               <h3>Event name: {this.state.currentEvent.title}</h3>
             </Modal.Description>
             <Modal.Content>
-              <p>Start: {this.state.currentEvent.start.toLocaleDateString()}&nbsp;{this.state.currentEvent.start.toLocaleTimeString()}</p>
-              <p>End: {this.state.currentEvent.end.toLocaleDateString()}&nbsp;{this.state.currentEvent.end.toLocaleTimeString()}</p>
+              <p>Start: {this.state.currentEvent.start.toLocaleDateString()}&nbsp;
+                        {this.state.currentEvent.start.toLocaleTimeString()}</p>
+              <p>End:   {this.state.currentEvent.end.toLocaleDateString()}&nbsp;
+                        {this.state.currentEvent.end.toLocaleTimeString()}</p>
               <br/>
             </Modal.Content>
             <Button type="button" color='yellow' onClick={this.close}>Close</Button>
-            <Button type="button" negative onClick={(evt) => this.removeEvent(this.state.currentEvent)}>Remove Event</Button>
+            <Button type="button"
+                    negative
+                    onClick={(evt) => this.removeEvent(this.state.currentEvent)}>Remove Event</Button>
           </Modal.Content>
         </Modal>
 
@@ -221,22 +233,22 @@ export class Calendar extends React.Component{
                 <label>Start</label>
                 <input className="output"
                        type="text"
-                       value={this.state.currentEvent.start}
-                       readOnly
+                       value={moment(this.state.currentEvent.start).format('LLLL')}
                 />
               </Form.Field>
               <Form.Field>
-                <label>Start</label>
+                <label>End</label>
                 <input className="output"
                        type="text"
-                       value={this.state.currentEvent.start}
-                       readOnly
+                       value={moment(this.state.currentEvent.end).format('LLLL')}
                 />
               </Form.Field>
             </Form>
             <br/>
             <Button type="button" color="yellow" onClick={this.closeDrag}>Cancel</Button>
-            <Button type="button" positive onClick={(evt) => this.addEvent(this.state.currentEvent)}> Add Event </Button>
+            <Button type="button"
+                    positive
+                    onClick={(evt) => this.addEvent(this.state.currentEvent)}>Add Event</Button>
           </Modal.Content>
         </Modal>
       </div>
