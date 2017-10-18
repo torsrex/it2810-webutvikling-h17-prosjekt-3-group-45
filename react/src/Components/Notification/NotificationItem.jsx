@@ -6,14 +6,10 @@ export class NotificationItem extends React.Component {
 
   render(){
     return(
-      <Message size="huge" color="teal">
-        <Message.List>
-          <Message.Item>
-            {this.props.event.title}&nbsp;Starts:&nbsp;
-            {moment(this.props.event.start).format("LLL")}
-          </Message.Item>
-        </Message.List>
-      </Message>
+      <Message.Item>
+        {this.props.event.title}&nbsp;Starts:&nbsp;
+        {moment(this.props.event.start).format("LLL")}
+      </Message.Item>
     )
   }
 }

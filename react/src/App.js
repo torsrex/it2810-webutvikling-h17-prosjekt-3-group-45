@@ -160,37 +160,30 @@ class App extends Component {
         </div>
         {/* Notification component goes here */}
         <Notification events={this.getUpcomingEvents()}/>
-        <Grid>
           <Navbar s={this.state}/>
-          <Grid.Column stretched width={12}>
-            <Segment>
-
-              <div id="content">
-                {/* VARIABLE CONTENT IS DISPLAYED HERE */}
-                <Switch>
-                  <Route exact path='/' render= {() => (
-                    <Calendar events={this.state.eventList}
-                              addEvent={this.handleAddEvent.bind(this)}
-                              rmEvent={this.handleRemoveEvent.bind(this)}/>
-                  )}/>
-                  <Route exact path='/todos' render= {() => (
-                    <Todos todos={this.state.todos} addTodo={this.handleAdd.bind(this)} onDelete={this.handleDelete.bind(this)}/>
-                  )}/>
-                  <Route exact path='/contacts' render= {() => (
-                    <Contacts contacts={this.state.contacts}
-                              addContact={this.handleAdd.bind(this)}
-                              onDelete={this.handleDelete.bind(this)} />
-                  )}/>
-                  <Route exact path='/notes' render= {() => (
-                    <Notes notes={this.state.notes}
-                           addNote={this.handleAdd.bind(this)}
-                           onDelete={this.handleDelete.bind(this)}/>
-                  )}/>
-                </Switch>
-              </div>
-            </Segment>
-          </Grid.Column>
-        </Grid>
+            <div id="content">
+              {/* VARIABLE CONTENT IS DISPLAYED HERE */}
+              <Switch>
+                <Route exact path='/' render= {() => (
+                  <Calendar events={this.state.eventList}
+                            addEvent={this.handleAddEvent.bind(this)}
+                            rmEvent={this.handleRemoveEvent.bind(this)}/>
+                )}/>
+                <Route exact path='/todos' render= {() => (
+                  <Todos todos={this.state.todos} addTodo={this.handleAdd.bind(this)} onDelete={this.handleDelete.bind(this)}/>
+                )}/>
+                <Route exact path='/contacts' render= {() => (
+                  <Contacts contacts={this.state.contacts}
+                            addContact={this.handleAdd.bind(this)}
+                            onDelete={this.handleDelete.bind(this)} />
+                )}/>
+                <Route exact path='/notes' render= {() => (
+                  <Notes notes={this.state.notes}
+                         addNote={this.handleAdd.bind(this)}
+                         onDelete={this.handleDelete.bind(this)}/>
+                )}/>
+              </Switch>
+            </div>
       </div>
     );
   }
