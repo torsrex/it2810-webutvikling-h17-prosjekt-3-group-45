@@ -6,17 +6,12 @@ import { List } from 'semantic-ui-react';
 
 class Todos extends Component{
 
-  deleteTodo(id){
-    this.props.onDelete("todos", id);
-  }
-
   render(){
-
     let todoItems;
     if(this.props.todos){
       todoItems = this.props.todos.map(todo => {
         return(
-          <TodoItem onDelete={this.deleteTodo.bind(this)} key={todo.id} todo={todo}/>
+          <TodoItem onDelete={(id) => this.props.onDelete("todos", id)} key={todo.id} todo={todo}/>
         )
       });
     }

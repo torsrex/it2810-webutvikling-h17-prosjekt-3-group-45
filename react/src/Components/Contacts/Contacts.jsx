@@ -4,17 +4,13 @@ import AddContact from './AddContact';
 
 export default class Contacts extends React.Component{
 
-  deleteContact(id){
-    this.props.onDelete("contacts", id);
-  }
-
   render(){
 
     let contactItems;
     if(this.props.contacts){
       contactItems = this.props.contacts.map(contact => {
         return(
-          <ContactItem onDelete={this.deleteContact.bind(this)} key={contact.id} contact={contact}/>
+          <ContactItem onDelete={(id) => this.props.onDelete("contacts", id)} key={contact.id} contact={contact}/>
         )
       });
     }
