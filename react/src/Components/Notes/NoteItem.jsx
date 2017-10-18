@@ -11,15 +11,15 @@ class NoteItem extends Component{
   render(){
     return (
 
-      <ul className="NoteList">
-        <li className="Note">
-            <h2>
-              <Button className="btn" size="mini" color="red" title="Delete" circular icon="trash outline" onClick={this.deleteNote.bind(this, this.props.note.id)} />
-              {this.props.note.title}
-            </h2>
-            <p>{this.props.note.description}</p>
-        </li>
-      </ul>
+      <div className="NoteList">
+        <div className="Note">
+          <h2>
+            <Button className="btn" size="mini" color="red" title="Delete" circular icon="trash outline" onClick={this.deleteNote.bind(this, this.props.note.id)} />
+            {this.props.note.title}
+          </h2>
+          <p>{this.props.note.description}</p>
+        </div>
+      </div>
 
     );
   }
