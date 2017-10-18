@@ -1,7 +1,7 @@
 import React from 'react';
 import { List, Button } from 'semantic-ui-react';
 
-export class Contact extends React.Component{
+export default class ContactItem extends React.Component{
 
   deleteContact(id){
     this.props.onDelete(id);

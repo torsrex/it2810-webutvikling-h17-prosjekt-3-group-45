@@ -1,5 +1,5 @@
 import React from 'react';
-import { Contact } from './ContactItem';
+import ContactItem from './ContactItem';
 import AddContact from './AddContact';
 
 export default class Contacts extends React.Component{
@@ -14,7 +14,7 @@ export default class Contacts extends React.Component{
     if(this.props.contacts){
       contactItems = this.props.contacts.map(contact => {
         return(
-          <Contact onDelete={this.deleteContact.bind(this)} key={contact.id} contact={contact}/>
+          <ContactItem onDelete={this.deleteContact.bind(this)} key={contact.id} contact={contact}/>
         )
       });
     }
