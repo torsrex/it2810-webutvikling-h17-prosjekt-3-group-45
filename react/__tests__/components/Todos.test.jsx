@@ -13,5 +13,9 @@ describe('Todos', () => {
       {id: uuid.v4(), title: 'Test todolist', description: 'Check if todolist crashes'}
     ]}/>, div);
   });
-});
 
+  it('renders AddTodo component', () => {
+    const div = document.createElement('div');
+    ReactDOM.render(<AddTodo addTodo={() => {}}/>, div);
+  });
+});
